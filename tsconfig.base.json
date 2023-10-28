@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@allweb/focusable": ["focusable/src/index.ts"]
+      "@pukanito/focusable": ["dist/focusable"]
     }
   },
   "exclude": ["node_modules", "tmp"]

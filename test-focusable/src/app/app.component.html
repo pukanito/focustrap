@@ -1,0 +1,9 @@
+<div>
+  <a href="#" data-focus="before-element">Before trap</a>
+  <div class="focus-container" [ngClass]="{ 'bg-red': !focusOk, 'bg-green': focusOk }">
+    <div><a href="#" data-focus="first-element">Focus first</a></div>
+    <div><a href="#" data-focus="middle-element">Focus middle</a></div>
+    <div><a href="#" data-focus="last-element">Focus last</a></div>
+  </div>
+  <a href="#" data-focus="after-element">After trap</a>
+</div>

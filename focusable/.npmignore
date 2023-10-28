@@ -1,0 +1,7 @@
+.npmignore
+.eslintrc.json
+jest.config.ts
+jest-setup.ts
+project.json
+tsconfig.*
+*.spec.js
