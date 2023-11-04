@@ -69,7 +69,9 @@
       "defaultConfiguration": "development",
       "dependsOn": [
         {
-          "target": "build"
+          "projects": ["focusable"],
+          "target": "build",
+          "params": "ignore"
         }
       ]
     },
