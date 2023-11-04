@@ -1,4 +1,4 @@
-import { Focusable } from 'focusable';
+import { Focusable } from './focusable';
 import { screen } from '@testing-library/dom';
 
 describe('Focusable', () => {
