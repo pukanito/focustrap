@@ -1,6 +1,19 @@
 {
   "name": "@pukanito/focusable",
   "version": "0.0.1",
+  "license": "MIT",
+  "description": "Get focusable child elements of a DOM element",
+  "keywords": ["focustrap", "focus", "trap", "accessibility"],
+  "homepage": "https://github.com/pukanito/focustrap/tree/main/focusable",
+  "bugs": "https://github.com/pukanito/focustrap/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pukanito/focustrap"
+  },
+  "author": {
+    "name": "Pukanito Forager",
+    "email": "pukanito@gmail.com"
+  },
   "dependencies": {
     "tslib": "^2.3.0"
   },
