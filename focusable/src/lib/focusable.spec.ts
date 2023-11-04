@@ -228,6 +228,48 @@ describe('Focusable', () => {
             </fieldset>`,
     focus: false,
   };
+  const radioButtonFirstChecked = {
+    html: `<fieldset>
+            <legend>Radio buttons:</legend>
+            <div>
+              <input type="radio" id="r1" name="radios" value="r1" checked data-testid="test-element" />
+              <label for="r1">r1</label>
+            </div>
+            <div>
+              <input type="radio" id="r2" name="radios" value="r2" />
+              <label for="r2">r2</label>
+            </div>
+          </fieldset>`,
+    focus: true,
+  };
+  const radioButtonSecondChecked = {
+    html: `<fieldset>
+            <legend>Radio buttons:</legend>
+            <div>
+              <input type="radio" id="r1" name="radios" value="r1" />
+              <label for="r1">r1</label>
+            </div>
+            <div>
+              <input type="radio" id="r2" name="radios" value="r2" checked data-testid="test-element" />
+              <label for="r2">r2</label>
+            </div>
+          </fieldset>`,
+    focus: true,
+  };
+  const radioButtonsAllUnchecked = {
+    html: `<fieldset>
+            <legend>Radio buttons:</legend>
+            <div>
+              <input type="radio" id="r1" name="radios" value="r1" data-testid="test-element" />
+              <label for="r1">r1</label>
+            </div>
+            <div>
+              <input type="radio" id="r2" name="radios" value="r2" />
+              <label for="r2">r2</label>
+            </div>
+          </fieldset>`,
+    focus: true,
+  };
   const video = {
     html: `<video controls data-testid="test-element"><source src="#" type="video/mp4">'video' with controls attribute should get focus</video>`,
     focus: true,
@@ -341,6 +383,9 @@ describe('Focusable', () => {
     { ...inputInsideLegendHiddenInsideFieldset },
     { ...inputInsideLegendVisibilityHiddenInsideFieldset },
     { ...inputInsideLegendDisplayNoneInsideFieldset },
+    { ...radioButtonFirstChecked },
+    { ...radioButtonSecondChecked },
+    { ...radioButtonsAllUnchecked },
     { ...video },
     { ...videoWithoutControls },
     { ...audio },

@@ -92,7 +92,7 @@ const isFocusable = (el: HTMLElement) =>
   isVisible(el) &&
   isNotDisabled(el) &&
   // Only the checked radio button of a group is focusable.
-  isNotUncheckedRadio(el) &&
+  (isNotUncheckedRadio(el) || isFirstRadioOfUncheckedGroup(el)) &&
   (isTabbableHtmlElement(el) || isTabbableWithoutTabIndex(el));
 
 // Returns true if the element is visible.
@@ -202,11 +202,23 @@ const checkImgOfArea =
     return true;
   };
 
-// Return true if the element is not an unchecked radio button.
-const isNotUncheckedRadio = (el: HTMLElement) =>
+// Return true if the element is not a radio button.
+const isNotRadio = (el: HTMLElement) =>
   el.tagName.toUpperCase() !== 'INPUT' ||
-  el.getAttribute('type')?.toUpperCase() !== 'RADIO' ||
-  (el as HTMLInputElement).checked;
+  el.getAttribute('type')?.toUpperCase() !== 'RADIO';
+
+// Return true if the element is not a radio button or it is a checked radio button.
+const isNotUncheckedRadio = (el: HTMLElement) =>
+  isNotRadio(el) || (el as HTMLInputElement).checked;
+
+// Return true if the element is not a radio button or it is the first radio button of a group
+// with only unchecked radio buttons.
+const isFirstRadioOfUncheckedGroup = (el: HTMLElement) =>
+  isNotRadio(el) ||
+  (document.querySelector(`input[name="${el.getAttribute('name')}"]`) === el &&
+    Array.from(
+      document.querySelectorAll(`input[name="${el.getAttribute('name')}"]`)
+    ).every((el) => !(el as HTMLInputElement).checked));
 
 // Return true if the element is a HTMLElement and has tabindex > -1.
 const isTabbableHtmlElement = (el: HTMLElement) =>
