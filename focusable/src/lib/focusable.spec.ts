@@ -345,7 +345,7 @@ describe('Focusable', () => {
     focus: true,
   };
 
-  const setInitialFocusCases = [
+  const setInitialFocusCases: { html: string; focus: boolean }[] = [
     { ...anchor },
     { ...anchorHidden },
     { ...anchorVisibilityHidden },
