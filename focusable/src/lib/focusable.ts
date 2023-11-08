@@ -27,13 +27,11 @@ function Focusable(
     focusableDefaultConfig.focusableElementSelectors;
   const isFocusablePredicate =
     config?.isFocusablePredicate || focusableDefaultConfig.isFocusablePredicate;
-  const isHtmlElement = (el: Element): el is HTMLElement =>
-    el instanceof HTMLElement;
   return {
     get focusables(): HTMLElement[] {
-      return Array.from(element.querySelectorAll(focusableElementSelectors))
-        .filter(isHtmlElement)
-        .filter(isFocusablePredicate);
+      return Array.from(
+        element.querySelectorAll<HTMLElement>(focusableElementSelectors)
+      ).filter(isFocusablePredicate);
     },
 
     get firstFocusable(): HTMLElement | null {
@@ -56,8 +54,8 @@ function Focusable(
   };
 }
 
-// Array of selectors of all possibly focusable elements.
-const focusableElements = [
+// Array of selectors of all possibly focusable elements (Must be HTMLElements).
+const focusableElementSelectors = [
   'a[href]',
   'area[href]',
   'button:not([disabled])',
@@ -79,7 +77,7 @@ const focusableElements = [
  * Default configuration.
  */
 const focusableDefaultConfig: FocusableConfig = {
-  focusableElementSelectors: focusableElements,
+  focusableElementSelectors,
   // isFocusablePredicate works on the focusableElementSelectors result.
   isFocusablePredicate: (el: HTMLElement) => isFocusable(el),
 };
@@ -108,7 +106,7 @@ const isNotHidden = (el: HTMLElement) =>
   !el.hasAttribute('hidden') ||
   cannotHiddenElements.includes(el.tagName.toUpperCase());
 
-// Elements where the 'hidden' attribute has no effect (only those selected from 'focusableElements').
+// Elements where the 'hidden' attribute has no effect (only those selected from 'focusableElementSelectors').
 const cannotHiddenElements = [/* "MAP", */ 'AREA'];
 
 // Returns true if the element is visible because the computed visibility (style) does not hide it
@@ -117,7 +115,7 @@ const hasVisibility = (el: HTMLElement) =>
   getComputedStyle(el).visibility !== 'hidden' ||
   cannotVisibilityElements.includes(el.tagName.toUpperCase());
 
-// Elements where the visibility style has no effect (only those selected from 'focusableElements').
+// Elements where the visibility style has no effect (only those selected from 'focusableElementSelectors').
 const cannotVisibilityElements = [/* "MAP", */ 'AREA'];
 
 // Returns true if the element is displayed (checks display style), or the display style has no effect on the element.
@@ -126,7 +124,7 @@ const isDisplayed = (el: HTMLElement): boolean =>
     cannotDisplayElements.includes(el.tagName.toUpperCase())) &&
   (el.parentElement ? isDisplayed(el.parentElement) : true);
 
-// Elements where the visibility style has no effect (only those selected from 'focusableElements').
+// Elements where the visibility style has no effect (only those selected from 'focusableElementSelectors').
 const cannotDisplayElements = [/* "MAP", */ 'AREA'];
 
 // Returns true if the element is disabled (and can be disabled), or cannot be disabled.
@@ -145,8 +143,8 @@ const disableableElements = [
   'BUTTON',
   'FIELDSET',
   'INPUT',
-  // "OPTGROUP",  // only those selected from 'focusableElements'.
-  // "OPTION",  // only those selected from 'focusableElements'.
+  // "OPTGROUP",  // only those selected from 'focusableElementSelectors'.
+  // "OPTION",  // only those selected from 'focusableElementSelectors'.
   'SELECT',
   'TEXTAREA',
 ];
@@ -168,14 +166,14 @@ const isNotFormElementInsideLegend = (el: HTMLElement) =>
 
 const formElements = [
   'BUTTON',
-  // "DATALIST",  // only those selected from 'focusableElements'.
+  // "DATALIST",  // only those selected from 'focusableElementSelectors'.
   'FIELDSET',
   'INPUT',
-  // "LABEL",  // only those selected from 'focusableElements'.
-  // "LEGEND",  // only those selected from 'focusableElements'.
-  // "OPTGROUP",  // only those selected from 'focusableElements'.
-  // "OPTION",  // only those selected from 'focusableElements'.
-  // "OUTPUT",  // only those selected from 'focusableElements'.
+  // "LABEL",  // only those selected from 'focusableElementSelectors'.
+  // "LEGEND",  // only those selected from 'focusableElementSelectors'.
+  // "OPTGROUP",  // only those selected from 'focusableElementSelectors'.
+  // "OPTION",  // only those selected from 'focusableElementSelectors'.
+  // "OUTPUT",  // only those selected from 'focusableElementSelectors'.
   'SELECT',
   'TEXTAREA',
 ];
