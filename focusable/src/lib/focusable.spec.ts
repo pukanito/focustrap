@@ -417,7 +417,7 @@ describe('Focusable', () => {
         focus ? 'test-element' : 'focus-trap-1'
       );
       const lastFocusElement = screen.getByTestId('focus-trap-1');
-      const focusTrap = Focusable(
+      const focusTrap = new Focusable(
         document.querySelector(
           '[data-testid="focus-trap-container"]'
         ) as HTMLElement
