@@ -8,18 +8,6 @@ Reference: https://nx.dev/nx-api/js
 
 Packages for implementing a focus trap in JavaScript.
 
-## Recreate the basic workspace:
-
-- create a new workspace for the focustrap: `npx create-nx-workspace focustrap --preset=ts`
-- add `nx` script to main `package.json`: `"nx": "nx"`
-- create the `focusable` library: `npm run nx -- g @nx/js:lib focusable`
-- create the `test-focusable` application: `npm run nx -- g @nx/angular:application test-focusable`
-- create the `focusable` library: `npm run nx -- g @nx/js:lib focustrap`
-
-### gpg signing in wsl windows 11
-
-- https://stackoverflow.com/a/68689405 (see first comments for an alternative path)
-
 ## Focusable
 
 Finds keyboard-focusable elements within a specified element’s subtree.
@@ -37,3 +25,17 @@ everything goes well there will be some green in the browser.
 ## FocusTrap
 
 Trap keyboard focus inside an element.
+
+## Notes
+
+### Recreate the basic workspace:
+
+- create a new workspace for the focustrap: `npx create-nx-workspace focustrap --preset=ts`
+- add `nx` script to main `package.json`: `"nx": "nx"`
+- create the `focusable` library: `npm run nx -- g @nx/js:lib focusable`
+- create the `test-focusable` application: `npm run nx -- g @nx/angular:application test-focusable`
+- create the `focusable` library: `npm run nx -- g @nx/js:lib focustrap`
+
+### gpg signing in wsl windows 11 (password popup in windows)
+
+- https://stackoverflow.com/a/68689405 (see first comments for an alternative path)
