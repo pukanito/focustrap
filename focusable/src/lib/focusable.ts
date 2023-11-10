@@ -94,7 +94,7 @@ class Focusable {
   };
 
   /**
-   * Helpers.
+   * Helpers for isFocusablePredicate.
    */
   // Returns true if the element is focusable.
   private static isFocusable = (el: HTMLElement) =>
