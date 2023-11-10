@@ -13,7 +13,8 @@ Packages for implementing a focus trap in JavaScript.
 - create a new workspace for the focustrap: `npx create-nx-workspace focustrap --preset=ts`
 - add `nx` script to main `package.json`: `"nx": "nx"`
 - create the `focusable` library: `npm run nx -- g @nx/js:lib focusable`
-- create the `test-focusable` application: `npm run nx g @nx/angular:application test-focusable`
+- create the `test-focusable` application: `npm run nx -- g @nx/angular:application test-focusable`
+- create the `focusable` library: `npm run nx -- g @nx/js:lib focustrap`
 
 ### gpg signing in wsl windows 11
 

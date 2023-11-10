@@ -1,0 +1,40 @@
+{
+  "name": "focustrap",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "focustrap/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/focustrap",
+        "main": "focustrap/src/index.ts",
+        "tsConfig": "focustrap/tsconfig.lib.json",
+        "assets": ["focustrap/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["focustrap/**/*.ts", "focustrap/package.json"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "focustrap/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
