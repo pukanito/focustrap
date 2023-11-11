@@ -1,9 +1,19 @@
-<div>
-  <a href="#" data-focus="before-element">Before trap</a>
-  <div class="focus-container" [ngClass]="{ 'bg-red': !focusOk, 'bg-green': focusOk }">
-    <div><a href="#" data-focus="first-element">Focus first</a></div>
-    <div><a href="#" data-focus="middle-element">Focus middle</a></div>
+<div class="p-5 d-flex flex-column gap-1">
+  <div><a href="#" data-focus="before-element">Before trap</a></div>
+  <div
+    #focusableContainer
+    [ngClass]="{ 'bg-red': !focusOk, 'bg-green': focusOk }"
+    class="p-2 d-flex flex-column gap-2"
+  >
+    <div>
+      <a href="#" data-focus="first-element">Focus first</a>
+    </div>
+    <div>
+      <a href="#" data-focus="middle-element">Focus middle</a>
+    </div>
     <div><a href="#" data-focus="last-element">Focus last</a></div>
   </div>
-  <a href="#" data-focus="after-element">After trap</a>
+  <div>
+    <a href="#" data-focus="after-element">After trap</a>
+  </div>
 </div>
