@@ -17,6 +17,7 @@
     },
     "test": {
       "cache": true,
+      "dependsOn": ["^build"],
       "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
     },
     "e2e": {

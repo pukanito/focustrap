@@ -1,0 +1,102 @@
+{
+  "name": "test-focustrap",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "pukanito",
+  "sourceRoot": "test-focustrap/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/test-focustrap",
+        "index": "test-focustrap/src/index.html",
+        "main": "test-focustrap/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "test-focustrap/tsconfig.app.json",
+        "assets": [
+          "test-focustrap/src/favicon.ico",
+          "test-focustrap/src/assets"
+        ],
+        "styles": ["test-focustrap/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "test-focustrap:build:production"
+        },
+        "development": {
+          "browserTarget": "test-focustrap:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "dependsOn": [
+        {
+          "projects": ["focustrap"],
+          "target": "build",
+          "params": "ignore"
+        }
+      ]
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "test-focustrap:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "test-focustrap/**/*.ts",
+          "test-focustrap/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "test-focustrap/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  }
+}

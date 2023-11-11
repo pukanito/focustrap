@@ -16,7 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@pukanito/focusable": ["dist/focusable"],
-      "@pukanito/focustrap": ["focustrap/src/index.ts"]
+      "@pukanito/focustrap": ["dist/focustrap"]
     }
   },
   "exclude": ["node_modules", "tmp"]
