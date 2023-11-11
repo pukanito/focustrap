@@ -17,11 +17,11 @@ focusTrap.off()
 
 ## Building
 
-Run `nx build focustrap` to build the library.
+Run `npm run nx -- build focustrap` from the root project directory to build the library.
 
 ## Running unit tests
 
-Run `nx test focustrap` to execute the unit tests via [Jest](https://jestjs.io).
+Run `npm run nx -- test focustrap` from the root project directory to execute the unit tests via [Jest](https://jestjs.io).
 
 ## NX default changes
 

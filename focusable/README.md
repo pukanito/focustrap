@@ -6,7 +6,6 @@ Finds keyboard-focusable elements within a specified element’s subtree.
 
 ## Usage
 
-Import the module and run it.
 ```typescript
 import Focusable from '@pukanito/focusable'
 const focus = new Focusable(element)
@@ -27,8 +26,8 @@ FocusTrap has the following methods:
 
 ## Building
 
-Run `nx build focusable` to build the library.
+Run `npm run nx -- build focusable` from the root project directory to build the library.
 
 ## Running unit tests
 
-Run `nx test focusable` to execute the unit tests via [Jest](https://jestjs.io).
+Run `npm run nx -- test focusable` from the root project directory to execute the unit tests via [Jest](https://jestjs.io).

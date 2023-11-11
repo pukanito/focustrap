@@ -8,6 +8,9 @@ Reference: https://nx.dev/nx-api/js
 
 Packages for implementing a focus trap in JavaScript.
 
+- build all: `npm run nx -- run-many -t build` (from the root project directory)
+- test all: `npm run nx -- run-many -t test` (from the root project directory)
+
 ## Focusable
 
 Finds keyboard-focusable elements within a specified element’s subtree.
@@ -24,7 +27,17 @@ everything goes well there will be some green in the browser.
 
 ## FocusTrap
 
-Trap keyboard focus inside an element.
+Trap keyboard focus inside an element when navigating with the keyboard.
+
+- build: `npm run nx -- build focustrap` (from the root project directory)
+- test: `npm run nx -- test focustrap` (from the root project directory)
+- publishing:
+
+### Testing
+
+The `test-focustrap` application is used for testing the build `focustrap` library.
+Run: `npm run nx -- serve test-focustrap` to build and start the application. You can 
+switch the focus trap on and off and tab around.
 
 ## Notes
 
@@ -35,6 +48,7 @@ Trap keyboard focus inside an element.
 - create the `focusable` library: `npm run nx -- g @nx/js:lib focusable`
 - create the `test-focusable` application: `npm run nx -- g @nx/angular:application test-focusable`
 - create the `focusable` library: `npm run nx -- g @nx/js:lib focustrap`
+- create the `test-focustrap` application: `npm run nx -- g @nx/angular:application test-focustrap`
 
 ### gpg signing in wsl windows 11 (password popup in windows)
 
