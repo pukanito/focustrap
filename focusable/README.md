@@ -8,9 +8,9 @@ Finds keyboard-focusable elements within a specified element’s subtree.
 
 Import the module and run it.
 ```typescript
-import FocusTrap from '@pukanito/focusable'
-const focustrap = FocusTrap(element)
-focustrap.focusables // Array of focusable elements
+import Focusable from '@pukanito/focusable'
+const focus = new Focusable(element)
+focus.focusables // Array of focusable elements
 ```
 - `element`: The element, which subtree to search for focusable elements. Defaults to `document`.
 
@@ -24,3 +24,11 @@ FocusTrap has the following properties:
 FocusTrap has the following methods:
 1. `isFirstFocusable(el)` - Returns true if the element is the first focusable.
 2. `isLastFocusable(el)` - Returns true if the element is the last focusable.
+
+## Building
+
+Run `nx build focusable` to build the library.
+
+## Running unit tests
+
+Run `nx test focusable` to execute the unit tests via [Jest](https://jestjs.io).
