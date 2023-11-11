@@ -9,7 +9,7 @@ import { Focusable } from '@pukanito/focusable';
 export class AppComponent implements AfterViewInit {
   focusOk: boolean = false;
   ngAfterViewInit(): void {
-    const focus = Focusable(
+    const focus = new Focusable(
       document.querySelector('.focus-container') as HTMLElement
     );
     this.focusOk =
