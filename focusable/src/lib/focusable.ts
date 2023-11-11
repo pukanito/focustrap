@@ -12,6 +12,7 @@ interface FocusableConfig {
   /**
    * Predicate that returns true if the element is focusable. Only elements
    * queried by the focusableElementSelectors are handed to the predicate.
+   *
    * @param el the element to check.
    */
   isFocusablePredicate: (el: HTMLElement) => boolean;
@@ -25,44 +26,70 @@ class Focusable {
   // Query selectors from specified config or default config.
   private focusableElementSelectors =
     this.config?.focusableElementSelectors ||
-    Focusable.focusableDefaultConfig.focusableElementSelectors;
+    Focusable.defaultFocusableConfig.focusableElementSelectors;
   // Predicate from specified config or default config.
   private isFocusablePredicate =
     this.config?.isFocusablePredicate ||
-    Focusable.focusableDefaultConfig.isFocusablePredicate;
+    Focusable.defaultFocusableConfig.isFocusablePredicate;
 
   /**
    * @param element the root element from where to find focusables (optional,
    *   default: document.documentElement).
-   * @param config FocusableConfig (optional, default: focusableDefaultConfig).
+   * @param config FocusableConfig (optional, default: defaultFocusableConfig).
    */
   constructor(
     private element: HTMLElement = document.documentElement,
-    private config: FocusableConfig = Focusable.focusableDefaultConfig
+    private config: FocusableConfig = Focusable.defaultFocusableConfig
   ) {}
 
+  /**
+   * @return all focusable HTMLElements of the root element.
+   */
   get focusables(): HTMLElement[] {
     return Array.from(
       this.element.querySelectorAll<HTMLElement>(this.focusableElementSelectors)
     ).filter(this.isFocusablePredicate);
   }
 
+  /**
+   * @return the first focusable HTMLElement of the root element.
+   */
   get firstFocusable(): HTMLElement | null {
     const focusables = this.focusables;
     return focusables.length > 0 ? focusables[0] : null;
   }
 
+  /**
+   * @return the last focusable HTMLElement of the root element.
+   */
   get lastFocusable(): HTMLElement | null {
     const focusables = this.focusables;
     return focusables.length > 0 ? focusables[focusables.length - 1] : null;
   }
 
+  /**
+   * @return true if this is the first focusable HTMLElement of the root element.
+   *
+   * @param el the HTMLElement to check.
+   */
   isFirstFocusable(el: HTMLElement): boolean {
     return el === this.firstFocusable;
   }
 
+  /**
+   * @return true if this is the last focusable HTMLElement of the root element.
+   *
+   * @param el the HTMLElement to check.
+   */
   isLastFocusable(el: HTMLElement): boolean {
     return el === this.lastFocusable;
+  }
+
+  /**
+   * @return the default configuration, can be used to derive a custom configuration.
+   */
+  static get defaultConfig(): FocusableConfig {
+    return { ...Focusable.defaultFocusableConfig };
   }
 
   // Array of selectors of all possibly focusable elements (Must be HTMLElements).
@@ -87,7 +114,7 @@ class Focusable {
   /**
    * Default configuration.
    */
-  static focusableDefaultConfig: FocusableConfig = {
+  private static defaultFocusableConfig: FocusableConfig = {
     focusableElementSelectors: this.defaultFocusableElementSelectors,
     // isFocusablePredicate works on the focusableElementSelectors result.
     isFocusablePredicate: (el: HTMLElement) => this.isFocusable(el),

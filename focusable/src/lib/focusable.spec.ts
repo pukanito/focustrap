@@ -426,4 +426,10 @@ describe('Focusable', () => {
       expect(focusTrap.isLastFocusable(lastFocusElement)).toBeTruthy();
     }
   );
+
+  it('should not modify the default config', () => {
+    const config1 = Focusable.defaultConfig;
+    config1.focusableElementSelectors = 'X';
+    expect(config1).not.toEqual(Focusable.defaultConfig);
+  });
 });
