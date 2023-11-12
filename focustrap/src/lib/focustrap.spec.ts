@@ -11,60 +11,64 @@ describe('FocusTrap', () => {
     beforeEach(() => {
       document.body.innerHTML = `
     <div>
-      <a href="https://www.test.com" data-testid="before-1">Outside trap</a>
+      <a href="https://www.test.com">Outside before trap</a>
       <div data-testid="focus-trap-container">
-        <a href="https://www.test.com" data-testid="focus-trap-1">Focus 1</a>
-        <a href="https://www.test.com" data-testid="focus-trap-2">Focus 2</a>
-        <a href="https://www.test.com" data-testid="focus-trap-3">Focus 3</a>
+        <a href="https://www.test.com">Focus 1</a>
+        <a href="https://www.test.com">Focus 2</a>
+        <a href="https://www.test.com">Focus 3</a>
       </div>
-      <a href="https://www.test.com" data-testid="after-1">Outside trap</a>
+      <a href="https://www.test.com">Outside after trap</a>
     </div>
     `;
       user = userEvent.setup();
-      screen.getByTestId('before-1').focus();
+      screen.getByRole('link', { name: 'Outside before trap' }).focus();
       container = document.querySelector(
         '[data-testid="focus-trap-container"]'
       )!;
     });
 
     it('should initially focus on the first element', () => {
-      expect(screen.getByTestId('before-1')).toHaveFocus();
+      expect(
+        screen.getByRole('link', { name: 'Outside before trap' })
+      ).toHaveFocus();
     });
 
     it('should focus on the first element of the focus trap when the focus trap is set', async () => {
       focusTrap = new FocusTrap(container);
-      expect(screen.getByTestId('focus-trap-1')).toHaveFocus();
+      expect(screen.getByRole('link', { name: 'Focus 1' })).toHaveFocus();
     });
 
     it('should focus tabbable elements inside the focus trap when tabbing forward', async () => {
       focusTrap = new FocusTrap(container);
       await user.tab();
-      expect(screen.getByTestId('focus-trap-2')).toHaveFocus();
+      expect(screen.getByRole('link', { name: 'Focus 2' })).toHaveFocus();
       await user.tab();
-      expect(screen.getByTestId('focus-trap-3')).toHaveFocus();
+      expect(screen.getByRole('link', { name: 'Focus 3' })).toHaveFocus();
       await user.tab();
-      expect(screen.getByTestId('focus-trap-1')).toHaveFocus();
+      expect(screen.getByRole('link', { name: 'Focus 1' })).toHaveFocus();
     });
 
     it('should focus tabbable elements inside the focus trap when tabbing backwards', async () => {
       focusTrap = new FocusTrap(container);
       await user.tab({ shift: true });
-      expect(screen.getByTestId('focus-trap-3')).toHaveFocus();
+      expect(screen.getByRole('link', { name: 'Focus 3' })).toHaveFocus();
       await user.tab({ shift: true });
-      expect(screen.getByTestId('focus-trap-2')).toHaveFocus();
+      expect(screen.getByRole('link', { name: 'Focus 2' })).toHaveFocus();
       await user.tab({ shift: true });
-      expect(screen.getByTestId('focus-trap-1')).toHaveFocus();
+      expect(screen.getByRole('link', { name: 'Focus 1' })).toHaveFocus();
     });
 
     it('should unset the focus trap', async () => {
       focusTrap = new FocusTrap(container);
       await user.tab();
-      expect(screen.getByTestId('focus-trap-2')).toHaveFocus();
-      focusTrap.off();
+      expect(screen.getByRole('link', { name: 'Focus 2' })).toHaveFocus();
+      focusTrap.uninstall();
       await user.tab();
-      expect(screen.getByTestId('focus-trap-3')).toHaveFocus();
+      expect(screen.getByRole('link', { name: 'Focus 3' })).toHaveFocus();
       await user.tab();
-      expect(screen.getByTestId('after-1')).toHaveFocus();
+      expect(
+        screen.getByRole('link', { name: 'Outside after trap' })
+      ).toHaveFocus();
     });
   });
 });

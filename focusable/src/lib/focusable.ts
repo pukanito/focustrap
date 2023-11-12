@@ -5,12 +5,12 @@ export { Focusable, FocusableConfig };
  */
 interface FocusableConfig {
   /**
-   * All query selectors separated by a comma. Only Elements found by querying
-   * with these selectors are considered focusable.
+   * All queryselectors separated by a comma. Only Elements found by querying
+   * with these selectors are considered keyboard focusable.
    */
   focusableElementSelectors: string;
   /**
-   * Predicate that returns true if the element is focusable. Only elements
+   * Predicate that returns true if the element is keyboard focusable. Only elements
    * queried by the focusableElementSelectors are handed to the predicate.
    *
    * @param el the element to check.
@@ -19,11 +19,10 @@ interface FocusableConfig {
 }
 
 /**
- * An object that keeps track of focusable child HTMLElements of a specified
- * parent HTMLElement.
+ * An object that keeps track of focusable child HTMLElements of a specified parent HTMLElement.
  */
 class Focusable {
-  // Query selectors from specified config or default config.
+  // Queryselectors from specified config or default config.
   private focusableElementSelectors =
     this.config?.focusableElementSelectors ||
     Focusable.defaultFocusableConfig.focusableElementSelectors;
@@ -33,26 +32,28 @@ class Focusable {
     Focusable.defaultFocusableConfig.isFocusablePredicate;
 
   /**
-   * @param element the root element from where to find focusables (optional,
+   * @param containerElement the HTMLElement from where to find keyboard focusables (optional,
    *   default: document.documentElement).
    * @param config FocusableConfig (optional, default: defaultFocusableConfig).
    */
   constructor(
-    private element: HTMLElement = document.documentElement,
+    private containerElement: HTMLElement = document.documentElement,
     private config: FocusableConfig = Focusable.defaultFocusableConfig
   ) {}
 
   /**
-   * @return all focusable HTMLElements of the root element.
+   * @return all keyboard focusable HTMLElements of the container element.
    */
   get focusables(): HTMLElement[] {
     return Array.from(
-      this.element.querySelectorAll<HTMLElement>(this.focusableElementSelectors)
+      this.containerElement.querySelectorAll<HTMLElement>(
+        this.focusableElementSelectors
+      )
     ).filter(this.isFocusablePredicate);
   }
 
   /**
-   * @return the first focusable HTMLElement of the root element.
+   * @return the first focusable HTMLElement of the container element.
    */
   get firstFocusable(): HTMLElement | null {
     const focusables = this.focusables;
@@ -60,7 +61,7 @@ class Focusable {
   }
 
   /**
-   * @return the last focusable HTMLElement of the root element.
+   * @return the last focusable HTMLElement of the container element.
    */
   get lastFocusable(): HTMLElement | null {
     const focusables = this.focusables;
@@ -68,7 +69,7 @@ class Focusable {
   }
 
   /**
-   * @return true if this is the first focusable HTMLElement of the root element.
+   * @return true if this is the first focusable HTMLElement of the container element.
    *
    * @param el the HTMLElement to check.
    */
@@ -77,7 +78,7 @@ class Focusable {
   }
 
   /**
-   * @return true if this is the last focusable HTMLElement of the root element.
+   * @return true if this is the last focusable HTMLElement of the container element.
    *
    * @param el the HTMLElement to check.
    */

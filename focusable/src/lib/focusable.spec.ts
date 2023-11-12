@@ -416,11 +416,9 @@ describe('Focusable', () => {
       const focusElement = screen.getByTestId(
         focus ? 'test-element' : 'focus-trap-1'
       );
-      const lastFocusElement = screen.getByTestId('focus-trap-1');
+      const lastFocusElement = screen.getByRole('link', { name: 'Focus 1' });
       const focusTrap = new Focusable(
-        document.querySelector(
-          '[data-testid="focus-trap-container"]'
-        ) as HTMLElement
+        screen.getByTestId('focus-trap-container')
       );
       expect(focusTrap.isFirstFocusable(focusElement)).toBeTruthy();
       expect(focusTrap.isLastFocusable(lastFocusElement)).toBeTruthy();
@@ -428,8 +426,8 @@ describe('Focusable', () => {
   );
 
   it('should not modify the default config', () => {
-    const config1 = Focusable.defaultConfig;
-    config1.focusableElementSelectors = 'X';
-    expect(config1).not.toEqual(Focusable.defaultConfig);
+    const modifiedConfig = Focusable.defaultConfig;
+    modifiedConfig.focusableElementSelectors = 'X';
+    expect(modifiedConfig).not.toEqual(Focusable.defaultConfig);
   });
 });

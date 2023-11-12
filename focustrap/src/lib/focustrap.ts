@@ -3,7 +3,7 @@ import { Focusable, FocusableConfig } from '@pukanito/focusable';
 export { FocusTrap };
 
 /**
- * Traps/un-traps focus inside the given element.
+ * Traps/un-traps focus inside the container element.
  */
 class FocusTrap {
   /**
@@ -41,19 +41,24 @@ class FocusTrap {
   };
 
   /**
-   * @param element HTMLElement where to set the focus trap.
+   * Install a focus trap and focus the first keyboard focusable HTMLElement.
+   *
+   * @param containerElement HTMLElement where to set the focus trap.
    * @param config (optional) FocusableConfig.
    */
-  constructor(private element: HTMLElement, private config?: FocusableConfig) {
-    element.addEventListener('keydown', this.handleFocus);
-    this.focusable = new Focusable(this.element, this.config);
+  constructor(
+    private containerElement: HTMLElement,
+    private config?: FocusableConfig
+  ) {
+    containerElement.addEventListener('keydown', this.handleFocus);
+    this.focusable = new Focusable(this.containerElement, this.config);
     this.focusable.firstFocusable?.focus();
   }
 
   /**
-   * Turn the focus trap off.
+   * Uninstall the focus trap.
    */
-  off() {
-    this.element.removeEventListener('keydown', this.handleFocus);
-  }
+  uninstall = () => {
+    this.containerElement.removeEventListener('keydown', this.handleFocus);
+  };
 }

@@ -11,7 +11,7 @@ import Focusable from '@pukanito/focusable'
 const focus = new Focusable(element)
 focus.focusables // Array of focusable elements
 ```
-- `element`: The element, which subtree to search for focusable elements. Defaults to `document`.
+- `element`: The element, which subtree to search for focusable elements. Defaults to `document.documentElement`.
 
 ### Properties
 

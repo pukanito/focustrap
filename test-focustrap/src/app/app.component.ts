@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
       if (value) {
         this.focusTrap = new FocusTrap(this.container.nativeElement);
       } else {
-        this.focusTrap?.off();
+        this.focusTrap?.uninstall();
         this.focusTrap = null;
       }
     });
