@@ -53,3 +53,7 @@ switch the focus trap on and off and tab around.
 ### gpg signing in wsl windows 11 (password popup in windows)
 
 - https://stackoverflow.com/a/68689405 (see first comments for an alternative path)
+
+### npm login from wsl windows 11
+
+- Use: `npm login --auth-type=legacy`
