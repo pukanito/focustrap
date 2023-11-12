@@ -2,7 +2,7 @@
   "name": "@pukanito/focustrap",
   "version": "0.0.1",
   "license": "MIT",
-  "description": "Trap tab focus inside an element",
+  "description": "Trap keyboard focus inside an element",
   "keywords": ["focustrap", "focus", "trap", "accessibility", "tab"],
   "homepage": "https://github.com/pukanito/focustrap/tree/main/focustrap",
   "bugs": "https://github.com/pukanito/focustrap/issues",
