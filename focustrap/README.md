@@ -7,7 +7,7 @@ Keeps focus trapped inside a HTMLElement when navigating with the keyboard.
 ## Usage
 
 ```typescript
-import { FocusTrap } from './focustrap';
+import { FocusTrap } from '@pukanito/focustrap';
 const container = document.querySelector('...')!;
 const focusTrap = new FocusTrap(container);
 /* Focus trapped inside the container */
