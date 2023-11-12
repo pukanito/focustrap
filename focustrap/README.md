@@ -11,7 +11,7 @@ import { FocusTrap } from '@pukanito/focustrap';
 const container = document.querySelector('...')!;
 const focusTrap = new FocusTrap(container);
 /* Focus trapped inside the container */
-focusTrap.off()
+focusTrap.uninstall()
 /* Focus no longer trapped */
 ```
 
