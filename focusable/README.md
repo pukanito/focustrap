@@ -6,6 +6,18 @@ Finds keyboard-focusable elements within a specified element’s subtree.
 
 ## Usage
 
+In `package.json` add a dependency to 'focusable':
+
+```json
+{
+  "dependencies": {
+    "@pukanito/focusable": "0.0.2"
+  }
+}
+```
+
+Use `Focusable`:
+
 ```typescript
 import Focusable from '@pukanito/focusable'
 const focus = new Focusable(element)
@@ -15,19 +27,11 @@ focus.focusables // Array of focusable elements
 
 ### Properties
 
-FocusTrap has the following properties:
+`Focusable` has the following properties:
 1. `focusables` - Array of keyboard focusable elements
 4. `firstFocusable` - First keyboard focusable element
 5. `lastFocusable` - Last keyboard focusable element
 
-FocusTrap has the following methods:
+`Focusable` has the following methods:
 1. `isFirstFocusable(el)` - Returns true if the element is the first focusable.
 2. `isLastFocusable(el)` - Returns true if the element is the last focusable.
-
-## Building
-
-Run `npm run nx -- build focusable` from the root project directory to build the library.
-
-## Running unit tests
-
-Run `npm run nx -- test focusable` from the root project directory to execute the unit tests via [Jest](https://jestjs.io).

@@ -57,3 +57,41 @@ switch the focus trap on and off and tab around.
 ### npm login from wsl windows 11
 
 - Use: `npm login --auth-type=legacy`
+
+### Focustrap, NX default changes
+
+#### jest.config.ts
+
+- added `modulePaths` and `moduleNameMapper` to find the focusable library.
+  `prefix` is set to `<rootDir>/../` because the `dist` directory in the mappings
+  is one level higher than the root of the `focustrap` library.
+
+```typescript
+/* eslint-disable */
+const { pathsToModuleNameMapper } = require('ts-jest');
+const { compilerOptions } = require('../tsconfig.base.json');
+
+export default {
+  // default config
+  modulePaths: [compilerOptions.baseUrl],
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
+    prefix: '<rootDir>/../',
+  }),
+};
+```
+
+#### tsconfig.spec.json
+
+- added `jest-setup.ts` to the `include`'s so that `@testing-library/jest-dom`
+  matchers are recognized by Intellij.
+
+```json
+{
+  "...": "default settings",
+  "include": [
+    "...",
+    "jest-setup.ts"
+  ]
+}
+
+```

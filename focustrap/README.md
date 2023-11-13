@@ -5,6 +5,18 @@ This library was generated with [Nx](https://nx.dev).
 Keeps focus trapped inside a HTMLElement when navigating with the keyboard.
 
 ## Usage
+In `package.json` add a dependency to 'focustrap' and 'focusable':
+
+```json
+{
+  "dependencies": {
+    "@pukanito/focustrap": "0.0.4",
+    "@pukanito/focusable": "0.0.2"
+  }
+}
+```
+
+Use `FocusTrap`:
 
 ```typescript
 import { FocusTrap } from '@pukanito/focustrap';
@@ -15,48 +27,10 @@ focusTrap.uninstall()
 /* Focus no longer trapped */
 ```
 
-## Building
+### Properties
 
-Run `npm run nx -- build focustrap` from the root project directory to build the library.
+`FocusTrap` has the following properties:
+1. `focusable` - access the underlying `Focusable`.
 
-## Running unit tests
-
-Run `npm run nx -- test focustrap` from the root project directory to execute the unit tests via [Jest](https://jestjs.io).
-
-## NX default changes
-
-### jest.config.ts
-
-- added `modulePaths` and `moduleNameMapper` to find the focusable library.
-  `prefix` is set to `<rootDir>/../` because the `dist` directory in the mappings
-  is one level higher than the root of the `focustrap` library.
-
-```typescript
-/* eslint-disable */
-const { pathsToModuleNameMapper } = require('ts-jest');
-const { compilerOptions } = require('../tsconfig.base.json');
-
-export default {
-  // default config
-  modulePaths: [compilerOptions.baseUrl],
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
-    prefix: '<rootDir>/../',
-  }),
-};
-```
-
-### tsconfig.spec.json
-
-- added `jest-setup.ts` to the `include`'s so that `@testing-library/jest-dom`
-  matchers are recognized by Intellij.
-
-```json
-{
-  "...": "default settings",
-  "include": [
-    "...",
-    "jest-setup.ts"
-  ]
-}
-
-```
+`FocusTrap` has the following methods:
+1. `uninstall()` - uninstalls the focus trap.
