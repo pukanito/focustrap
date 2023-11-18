@@ -4,6 +4,8 @@ This library was generated with [Nx](https://nx.dev).
 
 Finds keyboard-focusable elements within a specified element’s subtree.
 
+Available on [npmjs.com](https://www.npmjs.com/package/@pukanito/focusable).
+
 ## Usage
 
 In `package.json` add a dependency to 'focusable':
