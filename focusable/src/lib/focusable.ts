@@ -135,18 +135,9 @@ class Focusable {
   // Returns true if the element is visible.
   private static isVisible = (el: HTMLElement) =>
     // For AREA, check if the IMG is visible.
-    [this.hasVisibility, this.isNotHidden, this.isDisplayed].every(
+    [this.hasVisibility, this.isDisplayed].every(
       (fn) => fn(el) && this.checkImgOfArea(fn)(el)
     );
-
-  // Returns true if the element is visible because there is no 'hidden' attribute that hides it, or
-  // the 'hidden' attribute has no effect on the element. 'hidden' is not inherited, need to check parents ourselves.
-  private static isNotHidden = (el: HTMLElement) =>
-    !el.hasAttribute('hidden') ||
-    this.cannotHiddenElements.includes(el.tagName.toUpperCase());
-
-  // Elements where the 'hidden' attribute has no effect (only those selected from 'focusableElementSelectors').
-  private static cannotHiddenElements = [/* "MAP", */ 'AREA'];
 
   // Returns true if the element is visible because the computed visibility (style) does not hide it
   // or the visibility style has no effect on the element.
@@ -158,12 +149,13 @@ class Focusable {
   private static cannotVisibilityElements = [/* "MAP", */ 'AREA'];
 
   // Returns true if the element is displayed (checks display style), or the display style has no effect on the element.
+  // The element has 'display: none' when it has the 'hidden' attribute, hence not displayed then.
   private static isDisplayed = (el: HTMLElement): boolean =>
     (getComputedStyle(el).display !== 'none' ||
       this.cannotDisplayElements.includes(el.tagName.toUpperCase())) &&
     (el.parentElement ? this.isDisplayed(el.parentElement) : true);
 
-  // Elements where the visibility style has no effect (only those selected from 'focusableElementSelectors').
+  // Elements where the display style has no effect (only those selected from 'focusableElementSelectors').
   private static cannotDisplayElements = [/* "MAP", */ 'AREA'];
 
   // Returns true if the element is disabled (and can be disabled), or cannot be disabled.
