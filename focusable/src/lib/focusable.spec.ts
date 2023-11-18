@@ -2,26 +2,38 @@ import { Focusable } from './focusable';
 import { screen } from '@testing-library/dom';
 
 describe('Focusable', () => {
+  enum Details {
+    None,
+    Hidden,
+    VisibilityHidden,
+    DisplayNone,
+  }
+
   //region anchor
   const anchor = {
     html: `<a href="#" data-testid="test-element">Focus</a>`,
     focus: true,
+    details: Details.None,
   };
   const anchorHidden = {
-    html: `<a href="#" hidden data-testid="test-element">'hidden' should not get focus</a>`,
+    html: `<a href="#" hidden>'hidden' should not get focus</a>`,
     focus: false,
+    details: Details.Hidden,
   };
   const anchorVisibilityHidden = {
-    html: `<a href="#" style="visibility: hidden" data-testid="test-element">'visibility: hidden' should not get focus</a>`,
+    html: `<a href="#" style="visibility: hidden" >'visibility: hidden' should not get focus</a>`,
     focus: false,
+    details: Details.VisibilityHidden,
   };
   const anchorDisplayNone = {
-    html: `<a href="#" style="display: none" data-testid="test-element">'display: none' should not get focus</a>`,
+    html: `<a href="#" style="display: none" >'display: none' should not get focus</a>`,
     focus: false,
+    details: Details.DisplayNone,
   };
   const anchorWithoutHref = {
-    html: `<a data-testid="test-element">'a' without href should not get focus</a>`,
+    html: `<a>'a' without href should not get focus</a>`,
     focus: false,
+    details: Details.None,
   };
   //endregion
   //region area
@@ -33,6 +45,7 @@ describe('Focusable', () => {
               <area shape="circle" coords="337,300,44" alt="Cup of coffee" href="#">
             </map>`,
     focus: true,
+    details: Details.None,
   };
   const areaHidden = {
     html: `<img src="#" alt="Test" usemap="#workMap" width="400" height="379">
@@ -42,6 +55,7 @@ describe('Focusable', () => {
               <area shape="circle" coords="337,300,44" alt="Cup of coffee" href="#">
             </map>`,
     focus: true,
+    details: Details.Hidden,
   };
   const areaVisibilityHidden = {
     html: `<img src="#" alt="Test" usemap="#workMap" width="400" height="379">
@@ -51,6 +65,7 @@ describe('Focusable', () => {
               <area shape="circle" coords="337,300,44" alt="Cup of coffee" href="#">
             </map>`,
     focus: true,
+    details: Details.VisibilityHidden,
   };
   const areaDisplayNone = {
     html: `<img src="#" alt="Test" usemap="#workMap" width="400" height="379">
@@ -60,6 +75,7 @@ describe('Focusable', () => {
               <area shape="circle" coords="337,300,44" alt="Cup of coffee" href="#">
             </map>`,
     focus: true,
+    details: Details.DisplayNone,
   };
   const areaWithoutHref = {
     html: `<img src="#" alt="Test" usemap="#workMap" width="400" height="379">
@@ -69,71 +85,83 @@ describe('Focusable', () => {
               <area shape="circle" coords="337,300,44" alt="Cup of coffee">
             </map>`,
     focus: false,
+    details: Details.None,
   };
   const areaWithImgHidden = {
     html: `<img src="#" alt="Test" usemap="#workMap" width="400" height="379" hidden>
             <map name="workMap">
               <area shape="rect" coords="34,44,270,350" alt="Computer">
-              <area shape="rect" coords="290,172,333,250" alt="Phone" href="#" data-testid="test-element">
+              <area shape="rect" coords="290,172,333,250" alt="Phone" href="#">
               <area shape="circle" coords="337,300,44" alt="Cup of coffee" href="#">
             </map>`,
     focus: false,
+    details: Details.Hidden,
   };
   const areaWithImgVisibilityHidden = {
     html: `<img src="#" alt="Test" usemap="#workMap" width="400" height="379" style="visibility: hidden">
             <map name="workMap">
               <area shape="rect" coords="34,44,270,350" alt="Computer">
-              <area shape="rect" coords="290,172,333,250" alt="Phone" href="#" data-testid="test-element">
+              <area shape="rect" coords="290,172,333,250" alt="Phone" href="#">
               <area shape="circle" coords="337,300,44" alt="Cup of coffee" href="#">
             </map>`,
     focus: false,
+    details: Details.VisibilityHidden,
   };
   const areaWithImgDisplayNone = {
     html: `<img src="#" alt="Test" usemap="#workMap" width="400" height="379" style="display: none">
             <map name="workMap">
               <area shape="rect" coords="34,44,270,350" alt="Computer">
-              <area shape="rect" coords="290,172,333,250" alt="Phone" href="#" data-testid="test-element">
+              <area shape="rect" coords="290,172,333,250" alt="Phone" href="#">
               <area shape="circle" coords="337,300,44" alt="Cup of coffee" href="#">
             </map>`,
     focus: false,
+    details: Details.DisplayNone,
   };
   const imgWithoutUsemap = {
-    html: `<img src="#" alt="img without usemap attribute should not get focus" data-testid="test-element"/>`,
+    html: `<img src="#" alt="img without usemap attribute should not get focus"/>`,
     focus: false,
+    details: Details.None,
   };
   //endregion
   //region button
   const button = {
     html: `<button data-testid="test-element">Focus</button>`,
     focus: true,
+    details: Details.None,
   };
   const buttonHidden = {
-    html: `<button hidden data-testid="test-element">Hidden button should not get focus</button>`,
+    html: `<button hidden>Hidden button should not get focus</button>`,
     focus: false,
+    details: Details.Hidden,
   };
   const buttonVisibilityHidden = {
-    html: `<button style="visibility: hidden" data-testid="test-element">Hidden button should not get focus</button>`,
+    html: `<button style="visibility: hidden" >Hidden button should not get focus</button>`,
     focus: false,
+    details: Details.VisibilityHidden,
   };
   const buttonDisplayNone = {
-    html: `<button style="display: none" data-testid="test-element">Hidden button should not get focus</button>`,
+    html: `<button style="display: none" >Hidden button should not get focus</button>`,
     focus: false,
+    details: Details.DisplayNone,
   };
   const buttonDisabled = {
-    html: `<button disabled data-testid="test-element">Disabled button should not get focus</button>`,
+    html: `<button disabled >Disabled button should not get focus</button>`,
     focus: false,
+    details: Details.None,
   };
   const buttonInsideFieldset = {
     html: `<fieldset>
               <button data-testid="test-element">Focus</button>
             </fieldset>`,
     focus: true,
+    details: Details.None,
   };
   const buttonInsideFieldsetDisabled = {
     html: `<fieldset disabled>
-              <button data-testid="test-element">No focus</button>
+              <button>No focus</button>
             </fieldset>`,
     focus: false,
+    details: Details.None,
   };
   const buttonInsideLegendInsideFieldsetDisabled = {
     html: `<fieldset disabled>
@@ -142,6 +170,7 @@ describe('Focusable', () => {
               </legend>
             </fieldset>`,
     focus: true,
+    details: Details.None,
   };
   const buttonDeepInsideLegendInsideFieldsetDisabled = {
     html: `<fieldset disabled>
@@ -152,30 +181,34 @@ describe('Focusable', () => {
               </legend>
             </fieldset>`,
     focus: true,
+    details: Details.None,
   };
   const buttonInsideLegendHiddenInsideFieldset = {
     html: `<fieldset>
               <legend hidden>
-                <button data-testid="test-element">No focus</button>
+                <button>No focus</button>
               </legend>
             </fieldset>`,
     focus: false,
+    details: Details.Hidden,
   };
   const buttonInsideLegendVisibilityHiddenInsideFieldset = {
     html: `<fieldset>
               <legend style="visibility:hidden;">
-                <button data-testid="test-element">No focus</button>
+                <button>No focus</button>
               </legend>
             </fieldset>`,
     focus: false,
+    details: Details.VisibilityHidden,
   };
   const buttonInsideLegendDisplayNoneInsideFieldset = {
     html: `<fieldset>
               <legend style="display:none">
-                <button data-testid="test-element">No focus</button>
+                <button>No focus</button>
               </legend>
             </fieldset>`,
     focus: false,
+    details: Details.DisplayNone,
   };
   //endregion
   //region details/summary
@@ -185,70 +218,83 @@ describe('Focusable', () => {
               <p>Test description.</p>
             </details>`,
     focus: true,
+    details: Details.None,
   };
   const detailsWithoutSummary = {
     html: `<details data-testid="test-element">
               <p>Test description.</p>
             </details>`,
     focus: true,
+    details: Details.None,
   };
   const detailsWithSummaryHidden = {
-    html: `<details data-testid="test-element">
+    html: `<details>
               <summary hidden>Test</summary>
               <p>Test description.</p>
             </details>`,
     focus: false,
+    details: Details.Hidden,
   };
   const hiddenDetailsWithSummary = {
     html: `<details hidden>
-              <summary data-testid="test-element">Test</summary>
+              <summary>Test</summary>
               <p>Test description.</p>
             </details>`,
     focus: false,
+    details: Details.Hidden,
   };
   const hiddenDetailsWithoutSummary = {
-    html: `<details data-testid="test-element" hidden>
+    html: `<details hidden>
               <p>Test description.</p>
             </details>`,
     focus: false,
+    details: Details.Hidden,
   };
   //endregion
   //region input
   const input = {
     html: `<input type="text" aria-label="input should get focus" data-testid="test-element">`,
     focus: true,
+    details: Details.None,
   };
   const inputTypeHidden = {
-    html: `<input type="hidden" aria-label="'type=hidden' input should not get focus" data-testid="test-element">`,
+    html: `<input type="hidden" aria-label="'type=hidden' input should not get focus">`,
     focus: false,
+    details: Details.None,
   };
   const inputHidden = {
-    html: `<input type="text" hidden aria-label="hidden input should not get focus" data-testid="test-element">`,
+    html: `<input type="text" hidden aria-label="hidden input should not get focus">`,
     focus: false,
+    details: Details.Hidden,
   };
   const inputVisibilityHidden = {
-    html: `<input type="text" style="visibility: hidden" aria-label="visibility hidden input should not get focus" data-testid="test-element">`,
+    html: `<input type="text" style="visibility: hidden" aria-label="visibility hidden input should not get focus">`,
     focus: false,
+    details: Details.VisibilityHidden,
   };
   const inputDisplayNone = {
-    html: `<input type="text" style="display: none" aria-label="display none input should not get focus" data-testid="test-element">`,
+    html: `<input type="text" style="display: none" aria-label="display none input should not get focus">`,
     focus: false,
+    details: Details.DisplayNone,
   };
   const inputDisabled = {
-    html: `<input type="text" disabled aria-label="disabled input should not get focus" data-testid="test-element">`,
+    html: `<input type="text" disabled aria-label="disabled input should not get focus">`,
     focus: false,
+    details: Details.None,
   };
   const inputInsideFieldset = {
     html: `<fieldset>
               <input type="text" aria-label="input should get focus" data-testid="test-element">
             </fieldset>`,
     focus: true,
+    details: Details.None,
   };
   const inputInsideFieldsetDisabled = {
     html: `<fieldset disabled>
-              <input type="text" aria-label="input should not get focus" data-testid="test-element">
+              <input type="text" aria-label="input should not get focus">
             </fieldset>`,
     focus: false,
+    details: Details.None,
   };
   const inputInsideLegendInsideFieldsetDisabled = {
     html: `<fieldset disabled>
@@ -257,6 +303,7 @@ describe('Focusable', () => {
               </legend>
             </fieldset>`,
     focus: true,
+    details: Details.None,
   };
   const inputDeepInsideLegendInsideFieldsetDisabled = {
     html: `<fieldset disabled>
@@ -267,30 +314,34 @@ describe('Focusable', () => {
               </legend>
             </fieldset>`,
     focus: true,
+    details: Details.None,
   };
   const inputInsideLegendHiddenInsideFieldset = {
     html: `<fieldset>
               <legend hidden>
-                <input type="text" aria-label="input should not get focus" data-testid="test-element">
+                <input type="text" aria-label="input should not get focus">
               </legend>
             </fieldset>`,
     focus: false,
+    details: Details.Hidden,
   };
   const inputInsideLegendVisibilityHiddenInsideFieldset = {
     html: `<fieldset>
               <legend style="visibility:hidden;">
-                <input type="text" aria-label="input should not get focus" data-testid="test-element">
+                <input type="text" aria-label="input should not get focus">
               </legend>
             </fieldset>`,
     focus: false,
+    details: Details.VisibilityHidden,
   };
   const inputInsideLegendDisplayNoneInsideFieldset = {
     html: `<fieldset>
               <legend style="display:none">
-                <input type="text" aria-label="input should not get focus" data-testid="test-element">
+                <input type="text" aria-label="input should not get focus">
               </legend>
             </fieldset>`,
     focus: false,
+    details: Details.DisplayNone,
   };
   const radioButtonFirstChecked = {
     html: `<fieldset>
@@ -305,6 +356,7 @@ describe('Focusable', () => {
             </div>
           </fieldset>`,
     focus: true,
+    details: Details.None,
   };
   const radioButtonSecondChecked = {
     html: `<fieldset>
@@ -319,6 +371,7 @@ describe('Focusable', () => {
             </div>
           </fieldset>`,
     focus: true,
+    details: Details.None,
   };
   const radioButtonsAllUnchecked = {
     html: `<fieldset>
@@ -333,6 +386,7 @@ describe('Focusable', () => {
             </div>
           </fieldset>`,
     focus: true,
+    details: Details.None,
   };
   //endregion
   //region select
@@ -343,38 +397,43 @@ describe('Focusable', () => {
              <option value="item2">Item 2</option>
            </select>`,
     focus: true,
+    details: Details.None,
   };
   const selectHidden = {
     html: `<label for="selecttest">Choose an item:</label>
-           <select hidden name="selecttest" id="selecttest" data-testid="test-element">
+           <select hidden name="selecttest" id="selecttest">
              <option value="item1">Item 1</option>
              <option value="item2">Item 2</option>
            </select>`,
     focus: false,
+    details: Details.Hidden,
   };
   const selectVisibilityHidden = {
     html: `<label for="selecttest">Choose an item:</label>
-           <select style="visibility: hidden" name="selecttest" id="selecttest" data-testid="test-element">
+           <select style="visibility: hidden" name="selecttest" id="selecttest">
              <option value="item1">Item 1</option>
              <option value="item2">Item 2</option>
            </select>`,
     focus: false,
+    details: Details.VisibilityHidden,
   };
   const selectDisplayNone = {
     html: `<label for="selecttest">Choose an item:</label>
-           <select style="display: none" name="selecttest" id="selecttest" data-testid="test-element">
+           <select style="display: none" name="selecttest" id="selecttest">
              <option value="item1">Item 1</option>
              <option value="item2">Item 2</option>
            </select>`,
     focus: false,
+    details: Details.DisplayNone,
   };
   const selectDisabled = {
     html: `<label for="selecttest">Choose an item:</label>
-           <select disabled name="selecttest" id="selecttest" data-testid="test-element">
+           <select disabled name="selecttest" id="selecttest">
              <option value="item1">Item 1</option>
              <option value="item2">Item 2</option>
            </select>`,
     focus: false,
+    details: Details.None,
   };
   const selectInsideFieldset = {
     html: `<fieldset>
@@ -385,16 +444,18 @@ describe('Focusable', () => {
               </select>
             </fieldset>`,
     focus: true,
+    details: Details.None,
   };
   const selectInsideFieldsetDisabled = {
     html: `<fieldset disabled>
               <label for="selecttest">Choose an item:</label>
-              <select name="selecttest" id="selecttest" data-testid="test-element">
+              <select name="selecttest" id="selecttest">
                 <option value="item1">Item 1</option>
                 <option value="item2">Item 2</option>
               </select>
             </fieldset>`,
     focus: false,
+    details: Details.None,
   };
   const selectInsideLegendInsideFieldsetDisabled = {
     html: `<fieldset disabled>
@@ -406,6 +467,7 @@ describe('Focusable', () => {
                 </select>
             </fieldset>`,
     focus: true,
+    details: Details.None,
   };
   const selectDeepInsideLegendInsideFieldsetDisabled = {
     html: `<fieldset disabled>
@@ -420,42 +482,46 @@ describe('Focusable', () => {
               </legend>
             </fieldset>`,
     focus: true,
+    details: Details.None,
   };
   const selectInsideLegendHiddenInsideFieldset = {
     html: `<fieldset>
               <legend hidden>
                 <label for="selecttest">Choose an item:</label>
-                <select name="selecttest" id="selecttest" data-testid="test-element">
+                <select name="selecttest" id="selecttest">
                   <option value="item1">Item 1</option>
                   <option value="item2">Item 2</option>
                 </select>
               </legend>
             </fieldset>`,
     focus: false,
+    details: Details.Hidden,
   };
   const selectInsideLegendVisibilityHiddenInsideFieldset = {
     html: `<fieldset>
               <legend style="visibility:hidden;">
                 <label for="selecttest">Choose an item:</label>
-                <select name="selecttest" id="selecttest" data-testid="test-element">
+                <select name="selecttest" id="selecttest">
                   <option value="item1">Item 1</option>
                   <option value="item2">Item 2</option>
                 </select>
               </legend>
             </fieldset>`,
     focus: false,
+    details: Details.VisibilityHidden,
   };
   const selectInsideLegendDisplayNoneInsideFieldset = {
     html: `<fieldset>
               <legend style="display:none">
                 <label for="selecttest">Choose an item:</label>
-                <select name="selecttest" id="selecttest" data-testid="test-element">
+                <select name="selecttest" id="selecttest">
                   <option value="item1">Item 1</option>
                   <option value="item2">Item 2</option>
                 </select>
               </legend>
             </fieldset>`,
     focus: false,
+    details: Details.DisplayNone,
   };
   //endregion
   //region textArea
@@ -465,34 +531,39 @@ describe('Focusable', () => {
            Focus.
            </textarea>`,
     focus: true,
+    details: Details.None,
   };
   const textAreaHidden = {
     html: `<label for="textarea">Textarea:</label>
-           <textarea hidden id="textarea" name="textarea1" rows="4" cols="50" data-testid="test-element">
+           <textarea hidden id="textarea" name="textarea1" rows="4" cols="50">
            No focus.
            </textarea>`,
     focus: false,
+    details: Details.Hidden,
   };
   const textAreaVisibilityHidden = {
     html: `<label for="textarea">Textarea:</label>
-           <textarea style="visibility: hidden" id="textarea" name="textarea1" rows="4" cols="50" data-testid="test-element">
+           <textarea style="visibility: hidden" id="textarea" name="textarea1" rows="4" cols="50">
            No focus.
            </textarea>`,
     focus: false,
+    details: Details.VisibilityHidden,
   };
   const textAreaDisplayNone = {
     html: `<label for="textarea">Textarea:</label>
-           <textarea style="display: none" id="textarea" name="textarea1" rows="4" cols="50" data-testid="test-element">
+           <textarea style="display: none" id="textarea" name="textarea1" rows="4" cols="50">
            No focus.
            </textarea>`,
     focus: false,
+    details: Details.DisplayNone,
   };
   const textAreaDisabled = {
     html: `<label for="textarea">Textarea:</label>
-           <textarea disabled id="textarea" name="textarea1" rows="4" cols="50" data-testid="test-element">
+           <textarea disabled id="textarea" name="textarea1" rows="4" cols="50">
            No focus.
            </textarea>`,
     focus: false,
+    details: Details.None,
   };
   const textAreaInsideFieldset = {
     html: `<fieldset>
@@ -502,15 +573,17 @@ describe('Focusable', () => {
               </textarea>
             </fieldset>`,
     focus: true,
+    details: Details.None,
   };
   const textAreaInsideFieldsetDisabled = {
     html: `<fieldset disabled>
               <label for="textarea">Textarea:</label>
-              <textarea disabled id="textarea" name="textarea1" rows="4" cols="50" data-testid="test-element">
+              <textarea disabled id="textarea" name="textarea1" rows="4" cols="50">
               No focus.
               </textarea>
             </fieldset>`,
     focus: false,
+    details: Details.None,
   };
   const textAreaInsideLegendInsideFieldsetDisabled = {
     html: `<fieldset disabled>
@@ -522,6 +595,7 @@ describe('Focusable', () => {
               </legend>
             </fieldset>`,
     focus: true,
+    details: Details.None,
   };
   const textAreaDeepInsideLegendInsideFieldsetDisabled = {
     html: `<fieldset disabled>
@@ -535,59 +609,67 @@ describe('Focusable', () => {
               </legend>
             </fieldset>`,
     focus: true,
+    details: Details.None,
   };
   const textAreaInsideLegendHiddenInsideFieldset = {
     html: `<fieldset>
               <legend hidden>
                 <label for="textarea">Textarea:</label>
-                <textarea id="textarea" name="textarea1" rows="4" cols="50" data-testid="test-element">
+                <textarea id="textarea" name="textarea1" rows="4" cols="50">
                 No focus.
                 </textarea>
               </legend>
             </fieldset>`,
     focus: false,
+    details: Details.Hidden,
   };
   const textAreaInsideLegendVisibilityHiddenInsideFieldset = {
     html: `<fieldset>
               <legend style="visibility:hidden;">
                 <label for="textarea">Textarea:</label>
-                <textarea id="textarea" name="textarea1" rows="4" cols="50" data-testid="test-element">
+                <textarea id="textarea" name="textarea1" rows="4" cols="50">
                 No focus.
                 </textarea>
               </legend>
             </fieldset>`,
     focus: false,
+    details: Details.VisibilityHidden,
   };
   const textAreaInsideLegendDisplayNoneInsideFieldset = {
     html: `<fieldset>
               <legend style="display:none">
                 <label for="textarea">Textarea:</label>
-                <textarea id="textarea" name="textarea1" rows="4" cols="50" data-testid="test-element">
+                <textarea id="textarea" name="textarea1" rows="4" cols="50">
                 No focus.
                 </textarea>
               </legend>
             </fieldset>`,
     focus: false,
+    details: Details.DisplayNone,
   };
   //endregion
   //region audio
   const audio = {
     html: `<audio controls data-testid="test-element"><source src="#" type="audio/mpeg">'audio' with controls attribute should get focus</audio>`,
     focus: true,
+    details: Details.None,
   };
   const audioWithoutControls = {
     html: `<audio>'audio' without controls attribute should not get focus</audio>`,
     focus: false,
+    details: Details.None,
   };
   //endregion
   //region video
   const video = {
     html: `<video controls data-testid="test-element"><source src="#" type="video/mp4">'video' with controls attribute should get focus</video>`,
     focus: true,
+    details: Details.None,
   };
   const videoWithoutControls = {
     html: `<video>'video' without controls attribute should not get focus</video>`,
     focus: false,
+    details: Details.None,
   };
   //endregion
   //region contentEditable
@@ -598,171 +680,218 @@ describe('Focusable', () => {
           </blockquote>
         </div>`,
     focus: true,
+    details: Details.None,
   };
   const contentEditableTrue = {
     html: `<div>
          <cite contenteditable="true" data-testid="test-element">should get focus on cite</cite>
         </div>`,
     focus: true,
+    details: Details.None,
   };
   //endregion
-  //region nested elements
+
+  const simpleFocusCases: { html: string; focus: boolean; details: Details }[] =
+    [
+      //region anchor
+      { ...anchor },
+      { ...anchorHidden },
+      { ...anchorVisibilityHidden },
+      { ...anchorDisplayNone },
+      { ...anchorWithoutHref },
+      //endregion
+      //region area
+      { ...area },
+      { ...areaHidden },
+      { ...areaVisibilityHidden },
+      { ...areaDisplayNone },
+      { ...areaWithoutHref },
+      { ...areaWithImgHidden },
+      { ...areaWithImgVisibilityHidden },
+      { ...areaWithImgDisplayNone },
+      { ...imgWithoutUsemap },
+      //endregion
+      //region button
+      { ...button },
+      { ...buttonHidden },
+      { ...buttonVisibilityHidden },
+      { ...buttonDisplayNone },
+      { ...buttonDisabled },
+      { ...buttonInsideFieldset },
+      { ...buttonInsideFieldsetDisabled },
+      { ...buttonInsideLegendInsideFieldsetDisabled },
+      { ...buttonDeepInsideLegendInsideFieldsetDisabled },
+      { ...buttonInsideLegendHiddenInsideFieldset },
+      { ...buttonInsideLegendVisibilityHiddenInsideFieldset },
+      { ...buttonInsideLegendDisplayNoneInsideFieldset },
+      //endregion
+      //region details/summary
+      { ...summary },
+      { ...detailsWithoutSummary },
+      { ...detailsWithSummaryHidden },
+      { ...hiddenDetailsWithSummary },
+      { ...hiddenDetailsWithoutSummary },
+      //endregion
+      //region input
+      { ...input },
+      { ...inputTypeHidden },
+      { ...inputHidden },
+      { ...inputVisibilityHidden },
+      { ...inputDisplayNone },
+      { ...inputDisabled },
+      { ...inputInsideFieldset },
+      { ...inputInsideFieldsetDisabled },
+      { ...inputInsideLegendInsideFieldsetDisabled },
+      { ...inputDeepInsideLegendInsideFieldsetDisabled },
+      { ...inputInsideLegendHiddenInsideFieldset },
+      { ...inputInsideLegendVisibilityHiddenInsideFieldset },
+      { ...inputInsideLegendDisplayNoneInsideFieldset },
+      { ...radioButtonFirstChecked },
+      { ...radioButtonSecondChecked },
+      { ...radioButtonsAllUnchecked },
+      //endregion
+      //region select
+      { ...select },
+      { ...selectHidden },
+      { ...selectVisibilityHidden },
+      { ...selectDisplayNone },
+      { ...selectDisabled },
+      { ...selectInsideFieldset },
+      { ...selectInsideFieldsetDisabled },
+      { ...selectInsideLegendInsideFieldsetDisabled },
+      { ...selectDeepInsideLegendInsideFieldsetDisabled },
+      { ...selectInsideLegendHiddenInsideFieldset },
+      { ...selectInsideLegendVisibilityHiddenInsideFieldset },
+      { ...selectInsideLegendDisplayNoneInsideFieldset },
+      //endregion
+      //region textArea
+      { ...textArea },
+      { ...textAreaHidden },
+      { ...textAreaVisibilityHidden },
+      { ...textAreaDisplayNone },
+      { ...textAreaDisabled },
+      { ...textAreaInsideFieldset },
+      { ...textAreaInsideFieldsetDisabled },
+      { ...textAreaInsideLegendInsideFieldsetDisabled },
+      { ...textAreaDeepInsideLegendInsideFieldsetDisabled },
+      { ...textAreaInsideLegendHiddenInsideFieldset },
+      { ...textAreaInsideLegendVisibilityHiddenInsideFieldset },
+      { ...textAreaInsideLegendDisplayNoneInsideFieldset },
+      //endregion
+      //region audio
+      { ...audio },
+      { ...audioWithoutControls },
+      //endregion
+      //region video
+      { ...video },
+      { ...videoWithoutControls },
+      //endregion
+      //region contentEditable
+      { ...contentEditableEmpty },
+      { ...contentEditableTrue },
+      //endregion
+    ];
+
+  const focusableCasesHtml = simpleFocusCases
+    .filter((focusCase) => focusCase.focus)
+    .map((focusableCase) => focusableCase.html);
+
+  const focusableHtml = focusableCasesHtml.join('\r\n');
+
+  const visibilityHiddenHtml = simpleFocusCases
+    .filter(
+      (focusCase) =>
+        !focusCase.focus && focusCase.details === Details.VisibilityHidden
+    )
+    .map((focusableCase) =>
+      focusableCase.html.replace(/\s*data-testid="test-element"\s*/, '')
+    )
+    .join('\r\n');
+
+  const visibilityVisibleCasesHtml = simpleFocusCases
+    .filter((focusCase) => focusCase.focus)
+    .map((focusableCase) => {
+      if (focusableCase.html.includes('<img')) {
+        return focusableCase.html.replace(
+          // For AREA, set the corresponding IMG to visible.
+          '<img',
+          '<img style="visibility: visible"'
+        );
+      }
+      return focusableCase.html.replace(
+        /data-testid="test-element"/,
+        'style="visibility: visible" data-testid="test-element"'
+      );
+    });
+
+  //region nested focus cases
+  const insideDiv = (html: string) => ({
+    html: `<div>${html}</div>`,
+    focus: true,
+  });
   const insideDivHidden = {
     html: `<div hidden>
-          <a href="#" data-testid="test-element">inside 'visibility: hidden' should not get focus</a>
+          ${focusableHtml}
         </div>`,
     focus: false,
   };
   const insideDivVisibilityHidden = {
     html: `<div style="visibility: hidden">
-          <a href="#" data-testid="test-element">inside 'visibility: hidden' should not get focus</a>
+          ${focusableHtml}
         </div>`,
     focus: false,
   };
   const insideDivDisplayNone = {
     html: `<div style="display: none">
-          <a href="#" data-testid="test-element">inside 'display: none' should not get focus</a>
+          ${focusableHtml}
         </div>`,
     focus: false,
   };
   const visibilityHiddenInsideDivVisibilityHidden = {
     html: `<div style="visibility: hidden">
-          <a href="#" data-testid="test-element" style="visibility: hidden">inside 'visibility: hidden' and self 'visibility: hidden' should not get focus</a>
+          ${visibilityHiddenHtml}
         </div>`,
     focus: false,
   };
   const visibilityHiddenInsideDivVisibilityVisible = {
     html: `<div style="visibility: visible">
-          <a href="#" data-testid="test-element" style="visibility: hidden">self 'visibility: hidden' should not get focus</a>
+          ${visibilityHiddenHtml}
         </div>`,
     focus: false,
   };
-  const visibilityVisibleInsideDivVisibilityHidden = {
+  const visibilityVisibleInsideDivVisibilityHidden = (html: string) => ({
+    html: `<div style="visibility: hidden">${html}</div>`,
+    focus: true,
+  });
+  const insideDivVisibilityVisibleInsideDivVisibilityHidden = (
+    html: string
+  ) => ({
     html: `<div style="visibility: hidden">
-          <a href="#" style="visibility: visible" data-testid="test-element">Focus</a>
+          <div style="visibility: visible">${html}</div>
         </div>`,
     focus: true,
-  };
-  const insideDivVisibilityVisibleInsideDivVisibilityHidden = {
-    html: `<div style="visibility: hidden">
-          <div style="visibility: visible">
-            <a href="#" data-testid="test-element">Focus</a>
-          </div>
-        </div>`,
-    focus: true,
-  };
+  });
   //endregion
 
-  const setInitialFocusCases: { html: string; focus: boolean }[] = [
-    //region anchor
-    { ...anchor },
-    { ...anchorHidden },
-    { ...anchorVisibilityHidden },
-    { ...anchorDisplayNone },
-    { ...anchorWithoutHref },
-    //endregion
-    //region area
-    { ...area },
-    { ...areaHidden },
-    { ...areaVisibilityHidden },
-    { ...areaDisplayNone },
-    { ...areaWithoutHref },
-    { ...areaWithImgHidden },
-    { ...areaWithImgVisibilityHidden },
-    { ...areaWithImgDisplayNone },
-    { ...imgWithoutUsemap },
-    //endregion
-    //region button
-    { ...button },
-    { ...buttonHidden },
-    { ...buttonVisibilityHidden },
-    { ...buttonDisplayNone },
-    { ...buttonDisabled },
-    { ...buttonInsideFieldset },
-    { ...buttonInsideFieldsetDisabled },
-    { ...buttonInsideLegendInsideFieldsetDisabled },
-    { ...buttonDeepInsideLegendInsideFieldsetDisabled },
-    { ...buttonInsideLegendHiddenInsideFieldset },
-    { ...buttonInsideLegendVisibilityHiddenInsideFieldset },
-    { ...buttonInsideLegendDisplayNoneInsideFieldset },
-    //endregion
-    //region details/summary
-    { ...summary },
-    { ...detailsWithoutSummary },
-    { ...detailsWithSummaryHidden },
-    { ...hiddenDetailsWithSummary },
-    { ...hiddenDetailsWithoutSummary },
-    //endregion
-    //region input
-    { ...input },
-    { ...inputTypeHidden },
-    { ...inputHidden },
-    { ...inputVisibilityHidden },
-    { ...inputDisplayNone },
-    { ...inputDisabled },
-    { ...inputInsideFieldset },
-    { ...inputInsideFieldsetDisabled },
-    { ...inputInsideLegendInsideFieldsetDisabled },
-    { ...inputDeepInsideLegendInsideFieldsetDisabled },
-    { ...inputInsideLegendHiddenInsideFieldset },
-    { ...inputInsideLegendVisibilityHiddenInsideFieldset },
-    { ...inputInsideLegendDisplayNoneInsideFieldset },
-    { ...radioButtonFirstChecked },
-    { ...radioButtonSecondChecked },
-    { ...radioButtonsAllUnchecked },
-    //endregion
-    //region select
-    { ...select },
-    { ...selectHidden },
-    { ...selectVisibilityHidden },
-    { ...selectDisplayNone },
-    { ...selectDisabled },
-    { ...selectInsideFieldset },
-    { ...selectInsideFieldsetDisabled },
-    { ...selectInsideLegendInsideFieldsetDisabled },
-    { ...selectDeepInsideLegendInsideFieldsetDisabled },
-    { ...selectInsideLegendHiddenInsideFieldset },
-    { ...selectInsideLegendVisibilityHiddenInsideFieldset },
-    { ...selectInsideLegendDisplayNoneInsideFieldset },
-    //endregion
-    //region textArea
-    { ...textArea },
-    { ...textAreaHidden },
-    { ...textAreaVisibilityHidden },
-    { ...textAreaDisplayNone },
-    { ...textAreaDisabled },
-    { ...textAreaInsideFieldset },
-    { ...textAreaInsideFieldsetDisabled },
-    { ...textAreaInsideLegendInsideFieldsetDisabled },
-    { ...textAreaDeepInsideLegendInsideFieldsetDisabled },
-    { ...textAreaInsideLegendHiddenInsideFieldset },
-    { ...textAreaInsideLegendVisibilityHiddenInsideFieldset },
-    { ...textAreaInsideLegendDisplayNoneInsideFieldset },
-    //endregion
-    //region audio
-    { ...audio },
-    { ...audioWithoutControls },
-    //endregion
-    //region video
-    { ...video },
-    { ...videoWithoutControls },
-    //endregion
-    //region contentEditable
-    { ...contentEditableEmpty },
-    { ...contentEditableTrue },
-    //endregion
+  const focusCases: { html: string; focus: boolean }[] = [
+    ...simpleFocusCases,
     //region nested elements
+    ...focusableCasesHtml.map((html) => insideDiv(html)),
     { ...insideDivHidden },
     { ...insideDivVisibilityHidden },
     { ...insideDivDisplayNone },
     { ...visibilityHiddenInsideDivVisibilityHidden },
     { ...visibilityHiddenInsideDivVisibilityVisible },
-    { ...visibilityVisibleInsideDivVisibilityHidden },
-    { ...insideDivVisibilityVisibleInsideDivVisibilityHidden },
+    ...visibilityVisibleCasesHtml.map((html) =>
+      visibilityVisibleInsideDivVisibilityHidden(html)
+    ),
+    ...focusableCasesHtml.map((html) =>
+      insideDivVisibilityVisibleInsideDivVisibilityHidden(html)
+    ),
     //endregion
   ];
 
-  it.each(setInitialFocusCases)(
+  it.each(focusCases)(
     'should set focus correctly $#',
     async ({ html, focus }) => {
       document.body.innerHTML = `
