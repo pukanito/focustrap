@@ -890,7 +890,7 @@ describe('Focusable', () => {
   ];
 
   it.each(focusCases)(
-    'should set focus correctly $#',
+    'should set focus correctly $#: $html',
     async ({ html, focus }) => {
       document.body.innerHTML = `
     <div>
