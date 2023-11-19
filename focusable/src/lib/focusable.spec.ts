@@ -33,90 +33,115 @@ describe('Focusable', () => {
     focus: false,
     details: Details.None,
   };
+  const anchorInert = {
+    html: `<a inert href="#">Focus</a>`,
+    focus: false,
+    details: Details.None,
+  };
   //endregion
   //region area
   const area = {
-    html: `<img src="#" alt="Test" usemap="#workMap" width="400" height="379">
-            <map name="workMap">
-              <area shape="rect" coords="34,44,270,350" alt="Computer">
-              <area shape="rect" coords="290,172,333,250" alt="Phone" href="#" data-testid="test-element">
-              <area shape="circle" coords="337,300,44" alt="Cup of coffee" href="#">
+    html: `<img src="#" alt="Test" usemap="#aUseMap" width="400" height="379">
+            <map name="aUseMap">
+              <area shape="rect" coords="34,44,270,350" alt="Area 1">
+              <area shape="rect" coords="290,172,333,250" alt="Area 2" href="#" data-testid="test-element">
+              <area shape="circle" coords="337,300,44" alt="Area 3" href="#">
             </map>`,
     focus: true,
     details: Details.None,
   };
   const areaHidden = {
-    html: `<img src="#" alt="Test" usemap="#workMap" width="400" height="379">
-            <map name="workMap">
-              <area shape="rect" coords="34,44,270,350" alt="Computer">
-              <area shape="rect" coords="290,172,333,250" alt="Phone" href="#" data-testid="test-element" hidden>
-              <area shape="circle" coords="337,300,44" alt="Cup of coffee" href="#">
+    html: `<img src="#" alt="Test" usemap="#aUseMap" width="400" height="379">
+            <map name="aUseMap">
+              <area shape="rect" coords="34,44,270,350" alt="Area 1">
+              <area shape="rect" coords="290,172,333,250" alt="Area 2" href="#" data-testid="test-element" hidden>
+              <area shape="circle" coords="337,300,44" alt="Area 3" href="#">
             </map>`,
     focus: true,
     details: Details.None,
   };
   const areaVisibilityHidden = {
-    html: `<img src="#" alt="Test" usemap="#workMap" width="400" height="379">
-            <map name="workMap">
-              <area shape="rect" coords="34,44,270,350" alt="Computer">
-              <area shape="rect" coords="290,172,333,250" alt="Phone" href="#" data-testid="test-element" style="visibility: hidden">
-              <area shape="circle" coords="337,300,44" alt="Cup of coffee" href="#">
+    html: `<img src="#" alt="Test" usemap="#aUseMap" width="400" height="379">
+            <map name="aUseMap">
+              <area shape="rect" coords="34,44,270,350" alt="Area 1">
+              <area shape="rect" coords="290,172,333,250" alt="Area 2" href="#" data-testid="test-element" style="visibility: hidden">
+              <area shape="circle" coords="337,300,44" alt="Area 3" href="#">
             </map>`,
     focus: true,
     details: Details.VisibilityHidden,
   };
   const areaDisplayNone = {
-    html: `<img src="#" alt="Test" usemap="#workMap" width="400" height="379">
-            <map name="workMap">
-              <area shape="rect" coords="34,44,270,350" alt="Computer">
-              <area shape="rect" coords="290,172,333,250" alt="Phone" href="#" data-testid="test-element" style="display: none">
-              <area shape="circle" coords="337,300,44" alt="Cup of coffee" href="#">
+    html: `<img src="#" alt="Test" usemap="#aUseMap" width="400" height="379">
+            <map name="aUseMap">
+              <area shape="rect" coords="34,44,270,350" alt="Area 1">
+              <area shape="rect" coords="290,172,333,250" alt="Area 2" href="#" data-testid="test-element" style="display: none">
+              <area shape="circle" coords="337,300,44" alt="Area 3" href="#">
+            </map>`,
+    focus: true,
+    details: Details.None,
+  };
+  const areaInert = {
+    html: `<img src="#" alt="Test" usemap="#aUseMap" width="400" height="379">
+            <map name="aUseMap">
+              <area shape="rect" coords="34,44,270,350" alt="Area 1">
+              <area shape="rect" coords="290,172,333,250" alt="Area 2" inert href="#" data-testid="test-element">
+              <area shape="circle" coords="337,300,44" alt="Area 3" href="#">
             </map>`,
     focus: true,
     details: Details.None,
   };
   const areaWithoutHref = {
-    html: `<img src="#" alt="Test" usemap="#workMap" width="400" height="379">
-            <map name="workMap">
-              <area shape="rect" coords="34,44,270,350" alt="Computer">
-              <area shape="rect" coords="290,172,333,250" alt="Phone">
-              <area shape="circle" coords="337,300,44" alt="Cup of coffee">
+    html: `<img src="#" alt="Test" usemap="#aUseMap" width="400" height="379">
+            <map name="aUseMap">
+              <area shape="rect" coords="34,44,270,350" alt="Area 1">
+              <area shape="rect" coords="290,172,333,250" alt="Area 2">
+              <area shape="circle" coords="337,300,44" alt="Area 3">
             </map>`,
     focus: false,
     details: Details.None,
   };
   const areaWithImgHidden = {
-    html: `<img src="#" alt="Test" usemap="#workMap" width="400" height="379" hidden>
-            <map name="workMap">
-              <area shape="rect" coords="34,44,270,350" alt="Computer">
-              <area shape="rect" coords="290,172,333,250" alt="Phone" href="#">
-              <area shape="circle" coords="337,300,44" alt="Cup of coffee" href="#">
+    html: `<img src="#" alt="Test" usemap="#aUseMap" width="400" height="379" hidden>
+            <map name="aUseMap">
+              <area shape="rect" coords="34,44,270,350" alt="Area 1">
+              <area shape="rect" coords="290,172,333,250" alt="Area 2" href="#">
+              <area shape="circle" coords="337,300,44" alt="Area 3" href="#">
             </map>`,
     focus: false,
     details: Details.None,
   };
   const areaWithImgVisibilityHidden = {
-    html: `<img src="#" alt="Test" usemap="#workMap" width="400" height="379" style="visibility: hidden">
-            <map name="workMap">
-              <area shape="rect" coords="34,44,270,350" alt="Computer">
-              <area shape="rect" coords="290,172,333,250" alt="Phone" href="#">
-              <area shape="circle" coords="337,300,44" alt="Cup of coffee" href="#">
+    html: `<img src="#" alt="Test" usemap="#aUseMap" width="400" height="379" style="visibility: hidden">
+            <map name="aUseMap">
+              <area shape="rect" coords="34,44,270,350" alt="Area 1">
+              <area shape="rect" coords="290,172,333,250" alt="Area 2" href="#">
+              <area shape="circle" coords="337,300,44" alt="Area 3" href="#">
             </map>`,
     focus: false,
     details: Details.VisibilityHidden,
   };
   const areaWithImgDisplayNone = {
-    html: `<img src="#" alt="Test" usemap="#workMap" width="400" height="379" style="display: none">
-            <map name="workMap">
-              <area shape="rect" coords="34,44,270,350" alt="Computer">
-              <area shape="rect" coords="290,172,333,250" alt="Phone" href="#">
-              <area shape="circle" coords="337,300,44" alt="Cup of coffee" href="#">
+    html: `<img src="#" alt="Test" usemap="#aUseMap" width="400" height="379" style="display: none">
+            <map name="aUseMap">
+              <area shape="rect" coords="34,44,270,350" alt="Area 1">
+              <area shape="rect" coords="290,172,333,250" alt="Area 2" href="#">
+              <area shape="circle" coords="337,300,44" alt="Area 3" href="#">
             </map>`,
     focus: false,
     details: Details.None,
   };
   const imgWithoutUsemap = {
     html: `<img src="#" alt="img without usemap attribute should not get focus"/>`,
+    focus: false,
+    details: Details.None,
+  };
+  const imgInert = {
+    html: `<img src="#" alt="Test" inert usemap="#aUseMap" width="400" height="379">
+            <map name="aUseMap">
+              <area shape="rect" coords="34,44,270,350" alt="Area 1">
+              <area shape="rect" coords="290,172,333,250" alt="Area 2" href="#">
+              <area shape="circle" coords="337,300,44" alt="Area 3" href="#">
+            </map>`,
     focus: false,
     details: Details.None,
   };
@@ -142,6 +167,11 @@ describe('Focusable', () => {
     focus: false,
     details: Details.None,
   };
+  const buttonInert = {
+    html: `<button inert>No focus</button>`,
+    focus: false,
+    details: Details.None,
+  };
   const buttonDisabled = {
     html: `<button disabled >Disabled button should not get focus</button>`,
     focus: false,
@@ -157,6 +187,13 @@ describe('Focusable', () => {
   const buttonInsideFieldsetDisabled = {
     html: `<fieldset disabled>
               <button>No focus</button>
+            </fieldset>`,
+    focus: false,
+    details: Details.None,
+  };
+  const buttonInsideFieldsetInert = {
+    html: `<fieldset inert>
+              <button>Focus</button>
             </fieldset>`,
     focus: false,
     details: Details.None,
@@ -208,6 +245,15 @@ describe('Focusable', () => {
     focus: false,
     details: Details.None,
   };
+  const buttonInsideLegendInertInsideFieldset = {
+    html: `<fieldset>
+              <legend inert>
+                <button>No focus</button>
+              </legend>
+            </fieldset>`,
+    focus: false,
+    details: Details.None,
+  };
   //endregion
   //region details/summary
   const summary = {
@@ -216,6 +262,22 @@ describe('Focusable', () => {
               <p>Test description.</p>
             </details>`,
     focus: true,
+    details: Details.None,
+  };
+  const summaryInert = {
+    html: `<details>
+              <summary inert>Test</summary>
+              <p>Test description.</p>
+            </details>`,
+    focus: false,
+    details: Details.None,
+  };
+  const detailsInert = {
+    html: `<details inert>
+              <summary>Test</summary>
+              <p>Test description.</p>
+            </details>`,
+    focus: false,
     details: Details.None,
   };
   const detailsWithoutSummary = {
@@ -275,6 +337,11 @@ describe('Focusable', () => {
     focus: false,
     details: Details.None,
   };
+  const inputInert = {
+    html: `<input inert type="text" aria-label="input should get focus">`,
+    focus: false,
+    details: Details.None,
+  };
   const inputDisabled = {
     html: `<input type="text" disabled aria-label="disabled input should not get focus">`,
     focus: false,
@@ -290,6 +357,13 @@ describe('Focusable', () => {
   const inputInsideFieldsetDisabled = {
     html: `<fieldset disabled>
               <input type="text" aria-label="input should not get focus">
+            </fieldset>`,
+    focus: false,
+    details: Details.None,
+  };
+  const inputInsideFieldsetInert = {
+    html: `<fieldset inert>
+              <input type="text" aria-label="input should get focus">
             </fieldset>`,
     focus: false,
     details: Details.None,
@@ -335,6 +409,15 @@ describe('Focusable', () => {
   const inputInsideLegendDisplayNoneInsideFieldset = {
     html: `<fieldset>
               <legend style="display:none">
+                <input type="text" aria-label="input should not get focus">
+              </legend>
+            </fieldset>`,
+    focus: false,
+    details: Details.None,
+  };
+  const inputInsideLegendInertInsideFieldset = {
+    html: `<fieldset>
+              <legend inert>
                 <input type="text" aria-label="input should not get focus">
               </legend>
             </fieldset>`,
@@ -424,6 +507,15 @@ describe('Focusable', () => {
     focus: false,
     details: Details.None,
   };
+  const selectInert = {
+    html: `<label for="selecttest">Choose an item:</label>
+           <select inert name="selecttest" id="selecttest">
+             <option value="item1">Item 1</option>
+             <option value="item2">Item 2</option>
+           </select>`,
+    focus: false,
+    details: Details.None,
+  };
   const selectDisabled = {
     html: `<label for="selecttest">Choose an item:</label>
            <select disabled name="selecttest" id="selecttest">
@@ -446,6 +538,17 @@ describe('Focusable', () => {
   };
   const selectInsideFieldsetDisabled = {
     html: `<fieldset disabled>
+              <label for="selecttest">Choose an item:</label>
+              <select name="selecttest" id="selecttest">
+                <option value="item1">Item 1</option>
+                <option value="item2">Item 2</option>
+              </select>
+            </fieldset>`,
+    focus: false,
+    details: Details.None,
+  };
+  const selectInsideFieldsetInert = {
+    html: `<fieldset inert>
               <label for="selecttest">Choose an item:</label>
               <select name="selecttest" id="selecttest">
                 <option value="item1">Item 1</option>
@@ -521,6 +624,19 @@ describe('Focusable', () => {
     focus: false,
     details: Details.None,
   };
+  const selectInsideLegendInertInsideFieldset = {
+    html: `<fieldset>
+              <legend inert>
+                <label for="selecttest">Choose an item:</label>
+                <select name="selecttest" id="selecttest">
+                  <option value="item1">Item 1</option>
+                  <option value="item2">Item 2</option>
+                </select>
+              </legend>
+            </fieldset>`,
+    focus: false,
+    details: Details.None,
+  };
   //endregion
   //region textArea
   const textArea = {
@@ -555,6 +671,14 @@ describe('Focusable', () => {
     focus: false,
     details: Details.None,
   };
+  const textAreaInert = {
+    html: `<label for="textarea">Textarea:</label>
+           <textarea inert id="textarea" name="textarea1" rows="4" cols="50">
+           No focus.
+           </textarea>`,
+    focus: false,
+    details: Details.None,
+  };
   const textAreaDisabled = {
     html: `<label for="textarea">Textarea:</label>
            <textarea disabled id="textarea" name="textarea1" rows="4" cols="50">
@@ -577,6 +701,16 @@ describe('Focusable', () => {
     html: `<fieldset disabled>
               <label for="textarea">Textarea:</label>
               <textarea disabled id="textarea" name="textarea1" rows="4" cols="50">
+              No focus.
+              </textarea>
+            </fieldset>`,
+    focus: false,
+    details: Details.None,
+  };
+  const textAreaInsideFieldsetInert = {
+    html: `<fieldset inert>
+              <label for="textarea">Textarea:</label>
+              <textarea id="textarea" name="textarea1" rows="4" cols="50">
               No focus.
               </textarea>
             </fieldset>`,
@@ -645,11 +779,28 @@ describe('Focusable', () => {
     focus: false,
     details: Details.None,
   };
+  const textAreaInsideLegendInertInsideFieldset = {
+    html: `<fieldset>
+              <legend inert>
+                <label for="textarea">Textarea:</label>
+                <textarea id="textarea" name="textarea1" rows="4" cols="50">
+                No focus.
+                </textarea>
+              </legend>
+            </fieldset>`,
+    focus: false,
+    details: Details.None,
+  };
   //endregion
   //region audio
   const audio = {
     html: `<audio controls data-testid="test-element"><source src="#" type="audio/mpeg">'audio' with controls attribute should get focus</audio>`,
     focus: true,
+    details: Details.None,
+  };
+  const audioInert = {
+    html: `<audio inert controls><source src="#" type="audio/mpeg">'audio' with controls attribute should get focus</audio>`,
+    focus: false,
     details: Details.None,
   };
   const audioWithoutControls = {
@@ -662,6 +813,11 @@ describe('Focusable', () => {
   const video = {
     html: `<video controls data-testid="test-element"><source src="#" type="video/mp4">'video' with controls attribute should get focus</video>`,
     focus: true,
+    details: Details.None,
+  };
+  const videoInert = {
+    html: `<video inert controls><source src="#" type="video/mp4">'video' with controls attribute should get focus</video>`,
+    focus: false,
     details: Details.None,
   };
   const videoWithoutControls = {
@@ -697,34 +853,42 @@ describe('Focusable', () => {
       { ...anchorVisibilityHidden },
       { ...anchorDisplayNone },
       { ...anchorWithoutHref },
+      { ...anchorInert },
       //endregion
       //region area
       { ...area },
       { ...areaHidden },
       { ...areaVisibilityHidden },
       { ...areaDisplayNone },
+      { ...areaInert },
       { ...areaWithoutHref },
       { ...areaWithImgHidden },
       { ...areaWithImgVisibilityHidden },
       { ...areaWithImgDisplayNone },
       { ...imgWithoutUsemap },
+      { ...imgInert },
       //endregion
       //region button
       { ...button },
       { ...buttonHidden },
       { ...buttonVisibilityHidden },
       { ...buttonDisplayNone },
+      { ...buttonInert },
       { ...buttonDisabled },
       { ...buttonInsideFieldset },
       { ...buttonInsideFieldsetDisabled },
+      { ...buttonInsideFieldsetInert },
       { ...buttonInsideLegendInsideFieldsetDisabled },
       { ...buttonDeepInsideLegendInsideFieldsetDisabled },
       { ...buttonInsideLegendHiddenInsideFieldset },
       { ...buttonInsideLegendVisibilityHiddenInsideFieldset },
       { ...buttonInsideLegendDisplayNoneInsideFieldset },
+      { ...buttonInsideLegendInertInsideFieldset },
       //endregion
       //region details/summary
       { ...summary },
+      { ...summaryInert },
+      { ...detailsInert },
       { ...detailsWithoutSummary },
       { ...detailsWithSummaryHidden },
       { ...hiddenDetailsWithSummary },
@@ -736,14 +900,17 @@ describe('Focusable', () => {
       { ...inputHidden },
       { ...inputVisibilityHidden },
       { ...inputDisplayNone },
+      { ...inputInert },
       { ...inputDisabled },
       { ...inputInsideFieldset },
       { ...inputInsideFieldsetDisabled },
+      { ...inputInsideFieldsetInert },
       { ...inputInsideLegendInsideFieldsetDisabled },
       { ...inputDeepInsideLegendInsideFieldsetDisabled },
       { ...inputInsideLegendHiddenInsideFieldset },
       { ...inputInsideLegendVisibilityHiddenInsideFieldset },
       { ...inputInsideLegendDisplayNoneInsideFieldset },
+      { ...inputInsideLegendInertInsideFieldset },
       { ...radioButtonFirstChecked },
       { ...radioButtonSecondChecked },
       { ...radioButtonsAllUnchecked },
@@ -753,35 +920,43 @@ describe('Focusable', () => {
       { ...selectHidden },
       { ...selectVisibilityHidden },
       { ...selectDisplayNone },
+      { ...selectInert },
       { ...selectDisabled },
       { ...selectInsideFieldset },
       { ...selectInsideFieldsetDisabled },
+      { ...selectInsideFieldsetInert },
       { ...selectInsideLegendInsideFieldsetDisabled },
       { ...selectDeepInsideLegendInsideFieldsetDisabled },
       { ...selectInsideLegendHiddenInsideFieldset },
       { ...selectInsideLegendVisibilityHiddenInsideFieldset },
       { ...selectInsideLegendDisplayNoneInsideFieldset },
+      { ...selectInsideLegendInertInsideFieldset },
       //endregion
       //region textArea
       { ...textArea },
       { ...textAreaHidden },
       { ...textAreaVisibilityHidden },
       { ...textAreaDisplayNone },
+      { ...textAreaInert },
       { ...textAreaDisabled },
       { ...textAreaInsideFieldset },
       { ...textAreaInsideFieldsetDisabled },
+      { ...textAreaInsideFieldsetInert },
       { ...textAreaInsideLegendInsideFieldsetDisabled },
       { ...textAreaDeepInsideLegendInsideFieldsetDisabled },
       { ...textAreaInsideLegendHiddenInsideFieldset },
       { ...textAreaInsideLegendVisibilityHiddenInsideFieldset },
       { ...textAreaInsideLegendDisplayNoneInsideFieldset },
+      { ...textAreaInsideLegendInertInsideFieldset },
       //endregion
       //region audio
       { ...audio },
+      { ...audioInert },
       { ...audioWithoutControls },
       //endregion
       //region video
       { ...video },
+      { ...videoInert },
       { ...videoWithoutControls },
       //endregion
       //region contentEditable
@@ -845,6 +1020,12 @@ describe('Focusable', () => {
         </div>`,
     focus: false,
   };
+  const insideDivInert = {
+    html: `<div inert>
+          ${focusableHtml}
+        </div>`,
+    focus: false,
+  };
   const visibilityHiddenInsideDivVisibilityHidden = {
     html: `<div style="visibility: hidden">
           ${visibilityHiddenHtml}
@@ -878,6 +1059,7 @@ describe('Focusable', () => {
     { ...insideDivHidden },
     { ...insideDivVisibilityHidden },
     { ...insideDivDisplayNone },
+    { ...insideDivInert },
     { ...visibilityHiddenInsideDivVisibilityHidden },
     { ...visibilityHiddenInsideDivVisibilityVisible },
     ...visibilityVisibleCasesHtml.map((html) =>

@@ -95,21 +95,21 @@ class Focusable {
 
   // Array of selectors of all possibly focusable elements (Must be HTMLElements).
   private static defaultFocusableElementSelectors = [
-    'a[href]',
-    'area[href]',
-    'button:not([disabled])',
-    'summary',
-    'details',
-    'input:not([disabled])',
-    'select:not([disabled])',
-    'textarea:not([disabled])',
-    'object',
-    'audio[controls]',
-    'video[controls]',
-    '[contentEditable=""]',
-    '[contentEditable="true"]',
-    'iframe',
-    '[tabindex]',
+    'a[href]:not([inert]):not([inert] *)',
+    'area[href]:not([inert] *)',
+    'button:not([disabled]):not([inert]):not([inert] *)',
+    'summary:not([inert]):not([inert] *)',
+    'details:not([inert]):not([inert] *)',
+    'input:not([disabled]):not([inert]):not([inert] *)',
+    'select:not([disabled]):not([inert]):not([inert] *)',
+    'textarea:not([disabled]):not([inert]):not([inert] *)',
+    'object:not([inert]):not([inert] *)',
+    'audio[controls]:not([inert]):not([inert] *)',
+    'video[controls]:not([inert]):not([inert] *)',
+    '[contentEditable=""]:not([inert]):not([inert] *)',
+    '[contentEditable="true"]:not([inert]):not([inert] *)',
+    'iframe:not([inert]):not([inert] *)',
+    '[tabindex]:not([inert]):not([inert] *)',
   ].join(',');
 
   /**
@@ -212,7 +212,8 @@ class Focusable {
     'TEXTAREA',
   ];
 
-  // If the element is an AREA, return the corresponding IMG's predicate result, otherwise return true.
+  // If the element is an AREA, check the corresponding IMG, otherwise return true:
+  // if the IMG is inert return false, otherwise return the predicate result of the IMG.
   // AREA (and MAP) hidden/visibility/display only depend on the IMG's state.
   private static checkImgOfArea =
     (predicate: (el: HTMLElement) => boolean) => (el: HTMLElement) => {
@@ -229,6 +230,7 @@ class Focusable {
         const imgElement = document.querySelector(
           `img[usemap="#${mapElement.name}"]`
         ) as HTMLElement;
+        if (imgElement.hasAttribute('inert')) return false;
         if (imgElement) return predicate(imgElement);
       }
       return true;
