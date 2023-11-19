@@ -13,7 +13,7 @@ In `package.json` add a dependency to 'focusable':
 ```json
 {
   "dependencies": {
-    "@pukanito/focusable": "0.0.2"
+    "@pukanito/focusable": "1.0.0"
   }
 }
 ```

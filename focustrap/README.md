@@ -12,8 +12,8 @@ In `package.json` add a dependency to 'focustrap' and 'focusable':
 ```json
 {
   "dependencies": {
-    "@pukanito/focustrap": "0.0.4",
-    "@pukanito/focusable": "0.0.2"
+    "@pukanito/focustrap": "1.0.0",
+    "@pukanito/focusable": "1.0.0"
   }
 }
 ```

@@ -4,6 +4,8 @@
   "license": "MIT",
   "scripts": {
     "nx": "nx",
+    "publish:login": "npm login --auth-type=legacy",
+    "publish:logout": "npm logout",
     "publish:focusable": "npm publish ./dist/focusable --access public --auth-type=legacy",
     "publish:focustrap": "npm publish ./dist/focustrap --access public --auth-type=legacy"
   },

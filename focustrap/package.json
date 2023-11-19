@@ -1,6 +1,6 @@
 {
   "name": "@pukanito/focustrap",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "Trap keyboard focus inside an element",
   "keywords": [
@@ -21,7 +21,7 @@
     "email": "pukanito@gmail.com"
   },
   "peerDependencies": {
-    "@pukanito/focusable": "0.0.*"
+    "@pukanito/focusable": "^1.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
