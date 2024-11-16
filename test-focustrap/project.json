@@ -53,10 +53,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "test-focustrap:build:production"
+          "buildTarget": "test-focustrap:build:production"
         },
         "development": {
-          "browserTarget": "test-focustrap:build:development"
+          "buildTarget": "test-focustrap:build:development"
         }
       },
       "defaultConfiguration": "development",
@@ -71,31 +71,18 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "test-focustrap:build"
+        "buildTarget": "test-focustrap:build"
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "test-focustrap/**/*.ts",
-          "test-focustrap/**/*.html"
-        ]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "test-focustrap/jest.config.ts",
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
+        "jestConfig": "test-focustrap/jest.config.ts"
       }
     }
   }
